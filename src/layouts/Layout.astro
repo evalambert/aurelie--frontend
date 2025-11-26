@@ -2,7 +2,6 @@
 //layouts/Layout.astro
 import "../assets/styles/global.css";
 
-
 const { lang } = Astro.params;
 import LangSwitcher from "../components/common/LangSwitcher.astro";
 ---
@@ -13,7 +12,7 @@ import LangSwitcher from "../components/common/LangSwitcher.astro";
     <meta name="viewport" content="width=device-width" />
     <title>Aurélie Gravelat</title>
   </head>
-  <body>
+  <body class="font-mercure">
     <LangSwitcher />
     <main>
       <slot />
