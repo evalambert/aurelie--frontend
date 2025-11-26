@@ -1,0 +1,14 @@
+---
+const pathname = Astro.url.pathname;
+
+const current = Astro.params.lang || "fr";
+const other = current === "fr" ? "en" : "fr";
+
+// supprime "/fr" ou "/en" du début du chemin
+const clean = pathname.replace(/^\/(fr|en)/, "");
+---
+
+<nav>
+  <a href={`/fr${clean}`}>FR</a>
+  <a href={`/en${clean}`}>EN</a>
+</nav>

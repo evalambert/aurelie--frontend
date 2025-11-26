@@ -1,0 +1,26 @@
+---
+//pages/[lang]/index.astro
+import fetchApi from "../../assets/scripts/libs/strapi";
+import Layout from "../../layouts/Layout.astro";
+
+const { lang } = Astro.params;
+
+const exhibitions = await fetchApi({
+  endpoint: "exhibitions?populate=* ",
+  locale: lang,
+  wrappedByKey: "data",
+});
+---
+
+<Layout>
+  <h1>{lang === "fr" ? "Exposition" : "Exhibitions"}</h1>
+  <ul>
+    {
+      exhibitions.map((p) => (
+        <li>
+          <a href={`/${lang}/exhibitions/${p.slug}`}>{p.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
