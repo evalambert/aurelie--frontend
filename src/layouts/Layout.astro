@@ -5,9 +5,15 @@ import LangSwitcher from "../components/common/LangSwitcher.astro";
 ---
 
 <html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Aurélie Gravelat</title>
+  </head>
   <body>
     <LangSwitcher />
-    <slot />
+    <main>
+      <slot />
+    </main>
   </body>
 </html>
-

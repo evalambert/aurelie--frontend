@@ -1,27 +1,51 @@
 ---
+//pages/[lang]/index.astro
 import fetchApi from "../../assets/scripts/libs/strapi";
 import Layout from "../../layouts/Layout.astro";
+import About from "../../layouts/About.astro";
+import Atlas from "../../layouts/Atlas.astro";
+import Exhibitions from "../../layouts/Exhibitions.jsx";
 
 const { lang } = Astro.params;
 
-const exhibitions = await fetchApi({
-  endpoint: "exhibitions",
+const about = await fetchApi({
+  endpoint: "about",
+  query: {
+    populate: "*",
+  },
   locale: lang,
   wrappedByKey: "data",
 });
 
+const exhibitions = await fetchApi({
+  endpoint: "exhibitions",
+  query: {
+    populate: "*",
+  },
+  locale: lang,
+  wrappedByKey: "data",
+});
+
+const atlas = await fetchApi({
+  endpoint: "atlas",
+  query: {
+    populate: "*",
+  },
+  locale: lang,
+  wrappedByKey: "data",
+});
 ---
 
 <Layout>
-  <h1>{lang === "fr" ? "Exposition" : "Exhibitions"}</h1>
-  <pre>{JSON.stringify(exhibitions, null, 2)}</pre>
-  <ul>
-    {
-      exhibitions.map((p) => (
-        <li>
-          <a href={`/${lang}/exhibitions/${p.Slug}`}>{p.title}</a>
-        </li>
-      ))
-    }
-  </ul>
+  <section id="about">
+    <About data={about} lang={lang} />
+  </section>
+
+  <section id="exhibitions">
+    <Exhibitions client:load data={exhibitions} lang={lang} />
+  </section>
+
+  <section id="atlas">
+    <Atlas data={atlas} lang={lang} />
+  </section>
 </Layout>
