@@ -1,12 +1,13 @@
 // AtlasCard.jsx
 
-const AtlasCard = ({ atlas }) => {
+const AtlasCard = ({ id, atlas }) => {
+    const medium = atlas.medium;
 
     return (
-        <>
+        <div id={`atlas-${id}`}>
             <p>{atlas.title}</p>
-        </>
-
+            {medium && <p>({medium.medium})</p>}
+        </div>
     );
 };
 

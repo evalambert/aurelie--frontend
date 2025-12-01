@@ -27,7 +27,7 @@ const exhibitions = await fetchApi({
   wrappedByKey: "data"  ,
 });
 
-const atlas = await fetchApi({
+const atlases = await fetchApi({
   endpoint: "atlases",
   query: {
     populate: "*",
@@ -36,14 +36,7 @@ const atlas = await fetchApi({
   wrappedByKey: "data",
 });
 
-const mediums = await fetchApi({
-  endpoint: "mediums",
-  query: {
-    populate: "*",
-  },
-  locale: lang,
-  wrappedByKey: "data",
-});
+
 
 ---
 
@@ -66,7 +59,7 @@ const mediums = await fetchApi({
     </section> -->
 
     <section id="atlas">
-      <Atlas atlases={atlas} mediums={mediums} />
+      <Atlas client:load={true} atlases={atlases} /> 
     </section>
   </div>
 </Layout>

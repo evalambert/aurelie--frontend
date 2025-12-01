@@ -1,12 +1,14 @@
 // FilterAtlasList.jsx
 
-const FilterAtlasList = ({ medium }) => {
+const FilterAtlasList = ({ mediumName, onClick }) => {
     return (
-        <>
-            <p>{medium.medium}</p>
-        </>
-
+      <button
+        className="px-3 py-1 bg-white border border-black hover:bg-black hover:text-white transition"
+        onClick={onClick}
+      >
+        {mediumName}
+      </button>
     );
-};
-
-export default FilterAtlasList;
+  };
+  
+  export default FilterAtlasList;
