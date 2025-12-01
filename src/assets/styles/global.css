@@ -28,40 +28,40 @@
 /* TAILWIND */
 /* -------------------------------------------------------------------- */
 
+/* GLOBAL & DESKTOP */
+@theme {
 
+  /* Typography •••••••••••• */
+  --font-mercure: "Mercure-Regular", "serif";
+  --text-base: 20px;
+  --text-base--line-height: 23px;
 
-/* DESKTOP (breakpoint md:) */
+  /* Spacing •••••••••••• */
+  --spacing-y-body: 13px;
+  --spacing-x-body: 26px;
+
+  --spacing-header-height: 50px;
+
+}
+
+/* MOBILE (breakpoint md:) */
 @media (width < 48rem) {
-  @theme {
-
+  body {
     /* Typography •••••••••••• */
     --font-mercure: "Mercure-Regular", "serif";
-    --text-base: 20px;
-    --text-base--line-height: 23px;
+    --text-base: 16px;
+    --text-base--line-height: 20px;
 
     /* Spacing •••••••••••• */
     --spacing-y-body: 13px;
-    --spacing-x-body: 26px;
+    --spacing-x-body: 10px;
 
     --spacing-header-height: 50px;
 
   }
 }
 
-/* GLOBAL & MOBILE */
-@theme {
 
-  /* Typography •••••••••••• */
-  --font-mercure: "Mercure-Regular", "serif";
-  --text-base: 16px;
-  --text-base--line-height:20px;
-
-  /* Spacing •••••••••••• */
-  --spacing-y-body: 13px;
-  --spacing-x-body: 10px;
-
-  --spacing-header-height: 50px;
-}
 
 
 
