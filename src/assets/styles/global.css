@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 /* -------------------------------------------------------------------- */
 /* GLOBAL */
 /* Sommaire :
@@ -26,12 +27,37 @@
 /* -------------------------------------------------------------------- */
 /* TAILWIND */
 /* -------------------------------------------------------------------- */
+
+/* GLOBAL & MOBILE */
 @theme {
-  /* Typography */
+  
+  /* Typography •••••••••••• */
   --font-mercure: "Mercure-Regular", "serif";
   --text-base: 20px;
+  
+  /* Spacing •••••••••••• */
+  --spacing-y-body: 13px;
+  --spacing-x-body: 10px;
+
+  --spacing-header-height: 50px;
 }
+
+
+/* DESKTOP (breakpoint md:) */
+@media (width < 48rem) {
+    @theme {
+
+    /* Spacing •••••••••••• */
+    --spacing-y-body: 13px;
+    --spacing-x-body: 26px;
+
+    --spacing-header-height: 50px;
+
+    }
+}
+
 
 /* -------------------------------------------------------------------- */
 /* RESET */
 /* -------------------------------------------------------------------- */
+

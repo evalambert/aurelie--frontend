@@ -5,6 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 import About from "../../layouts/About.astro";
 import Atlas from "../../layouts/Atlas.astro";
 import Exhibitions from "../../layouts/Exhibitions.jsx";
+import PreviewPanel from "../../components/features/PreviewPanel.astro";
 
 const { lang } = Astro.params;
 
@@ -37,21 +38,28 @@ const atlas = await fetchApi({
 ---
 
 <Layout>
-  <section id="about">
-    <About data={about} lang={lang} />
-  </section>
+  <div class="mt-header-height">
+    <section id="landscape">
+      <PreviewPanel />
+    </section>
 
-  <section id="exhibitions">
-    <Exhibitions client:load data={exhibitions} lang={lang} />
-  </section>
+    <section id="about" class="md:grid md:grid-cols-24 md:gap-[10px] border border-blue-500">
+      <div class="md:col-span-10 lg:col-span-8 border border-blue-200">
+        <About data={about} lang={lang} />
+      </div>
+    </section>
 
-  <section id="atlas">
-    <Atlas data={atlas} lang={lang} />
-    <div class="text-amber-900 spacer-large">
-      <p>
-        Coucou 
-      </p>
-    </div>
-  </section>
-  
+    <section id="exhibitions" class="grid md:grid-cols-24 border border-orange-500">
+      <div class="md:col-span-10 lg:col-span-10 border border-orange-200">
+        <Exhibitions client:load data={exhibitions} lang={lang} />
+      </div>
+    </section>
+
+    <section id="atlas" class="border border-green-500">
+      <Atlas data={atlas} lang={lang} />
+      <div class="text-amber-900 spacer-large">
+        <p>Coucou</p>
+      </div>
+    </section>
+  </div>
 </Layout>

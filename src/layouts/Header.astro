@@ -1,0 +1,25 @@
+---
+//layouts/Header.astro
+ 
+import LangSwitcher from "../components/common/LangSwitcher.astro";
+
+---
+<header class="fixed top-0 left-0 w-full">
+    <div class="flex gap-[20px] mt-y-body mx-x-body border border-pink-500">
+        <a href="#landscape">
+            <h1>Aurélie Gravelat</h1>
+        </a>
+        <ul class="flex">
+            <li>
+                <a href="#about">about,</a>
+            </li>
+            <li>
+                <a href="#exhibitions">exhibitions,</a>
+            </li>
+            <li>
+                <a href="#atlas">atlas</a>
+            </li>
+        </ul>
+        <LangSwitcher />
+    </div>
+</header>
