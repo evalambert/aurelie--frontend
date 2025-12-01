@@ -1,9 +1,7 @@
 ---
-//components/features/PreviewPanel.astro
+import SliderLandscape from "./landscape/SliderLandscape.jsx";
+import WrapperExhibitionPreview from "./exhibitions/WrapperExhibitionPreview.jsx";
 ---
 
-<div class="fixed top-0 right-0 w-screen h-screen bg-violet-100 opacity-60 md:w-[57.8vw] lg:w-[58vw]">
-    <a href="#landscape" class="absolute right-0">
-        <span>Link for test</span>
-      </a>
-</div>
+<SliderLandscape client:load />
+<!-- <WrapperExhibitionPreview client:load /> -->
