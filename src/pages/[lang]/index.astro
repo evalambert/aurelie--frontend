@@ -46,13 +46,19 @@ const atlases = await fetchApi({
       <PreviewPanel />
     </section>
 
-    <section id="about" class="md:grid md:grid-cols-24 md:gap-[10px] border border-blue-500">
+    <section
+      id="about"
+      class="md:grid md:grid-cols-24 md:gap-[10px] border border-blue-500"
+    >
       <div class="md:col-span-10 lg:col-span-8 border border-blue-200">
         <About data={about} lang={lang} />
       </div>
     </section>
 
-    <section id="exhibitions" class="grid md:grid-cols-24 border border-orange-500">
+    <section
+      id="exhibitions"
+      class="grid md:grid-cols-24 border border-orange-500"
+    >
       <div class="md:col-span-10 lg:col-span-10 border border-orange-200">
         <Exhibitions client:load data={exhibitions} lang={lang} />
       </div>
