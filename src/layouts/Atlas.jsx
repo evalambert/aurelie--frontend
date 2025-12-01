@@ -35,7 +35,7 @@ const Atlas = ({ atlases }) => {
     <div className="wrapper-atlas py-y-body px-x-body bg-[#E0E0E0] h-[200vh]">
 
       {/* --- 4. Boutons des Mediums --- */}
-      <ul className="filters flex gap-[10px] sticky top-header-height mb-[50px]">
+      <ul className="filters flex gap-[10px] sticky top-[40px] mb-[50px]">
         {mediumsList.map((m) => (
           <FilterAtlasList 
             key={m} 
