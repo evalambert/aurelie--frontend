@@ -1,1 +1,38 @@
 @import "tailwindcss";
+
+
+
+/* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —  */
+/*  TAILWIND settings  */
+
+
+/* DESKTOP (breakpoint md:) */
+@media (width < 48rem) {
+    @theme {
+
+    /* Spacing •••••••••••• */
+    --spacing-y-body: 13px;
+    --spacing-x-body: 26px;
+
+    --spacing-header-height: 50px;
+
+
+
+
+
+    }
+}
+
+/* MOBILE */
+@theme {
+
+    /* Spacing •••••••••••• */
+    --spacing-y-body: 13px;
+    --spacing-x-body: 10px;
+
+    --spacing-header-height: 50px;
+
+
+
+
+}

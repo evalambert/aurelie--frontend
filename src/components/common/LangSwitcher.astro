@@ -8,7 +8,11 @@ const other = current === "fr" ? "en" : "fr";
 const clean = pathname.replace(/^\/(fr|en)/, "");
 ---
 
-<nav>
-  <a href={`/fr${clean}`}>FR</a>
-  <a href={`/en${clean}`}>EN</a>
-</nav>
+<ul class="flex">
+  <li>
+    <a href={`/fr${clean}`}>FR</a>
+  </li>
+  <li>
+    <a href={`/en${clean}`}>EN</a>
+  </li>
+</ul>
