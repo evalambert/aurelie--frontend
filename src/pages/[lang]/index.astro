@@ -3,7 +3,7 @@
 import fetchApi from "../../assets/scripts/libs/strapi";
 import Layout from "../../layouts/Layout.astro";
 import About from "../../layouts/About.astro";
-import Atlas from "../../layouts/Atlas.astro";
+import Atlas from "../../layouts/Atlas.jsx";
 import Exhibitions from "../../layouts/Exhibitions.jsx";
 import PreviewPanel from "../../components/features/PreviewPanel.astro";
 
@@ -24,22 +24,25 @@ const exhibitions = await fetchApi({
     populate: "*",
   },
   locale: lang,
-  wrappedByKey: "data",
+  wrappedByKey: "data"  ,
 });
 
-const atlas = await fetchApi({
-  endpoint: "atlas",
+const atlases = await fetchApi({
+  endpoint: "atlases",
   query: {
     populate: "*",
   },
   locale: lang,
   wrappedByKey: "data",
 });
+
+
+
 ---
 
 <Layout>
   <div class="mt-header-height">
-    <section id="landscape">
+    <!-- <section id="landscape">
       <PreviewPanel />
     </section>
 
@@ -53,13 +56,10 @@ const atlas = await fetchApi({
       <div class="md:col-span-10 lg:col-span-10 border border-orange-200">
         <Exhibitions client:load data={exhibitions} lang={lang} />
       </div>
-    </section>
+    </section> -->
 
-    <section id="atlas" class="border border-green-500">
-      <Atlas data={atlas} lang={lang} />
-      <div class="text-amber-900 spacer-large">
-        <p>Coucou</p>
-      </div>
+    <section id="atlas">
+      <Atlas client:load={true} atlases={atlases} /> 
     </section>
   </div>
 </Layout>
