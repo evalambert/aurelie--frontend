@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import AtlasCard from "../components/features/atlas/AtlasCard.jsx";
 import FilterAtlasList from "../components/features/atlas/FilterAtlasList.jsx";
+import ImageAtlas from "../components/features/atlas/ImageAtlas.jsx";
 
 const Atlas = ({ atlases }) => {
 
@@ -32,7 +33,8 @@ const Atlas = ({ atlases }) => {
   };
 
   return (
-    <div className="wrapper-atlas py-y-body px-x-body bg-[#E0E0E0] h-[200vh]">
+
+    <div className="wrapper-atlas py-y-body px-x-body bg-[#E0E0E0]">
 
       {/* --- 4. Boutons des Mediums --- */}
       <ul className="filters flex gap-[10px] sticky top-[40px] mb-[50px]">
@@ -52,6 +54,10 @@ const Atlas = ({ atlases }) => {
           <AtlasCard key={p.id} atlas={p} />
         ))}
       </div>
+
+      {atlases.map((i) => (
+        <ImageAtlas key={i.id} atlas={i} />
+      ))}
 
     </div>
   );
