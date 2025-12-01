@@ -28,13 +28,34 @@
 /* TAILWIND */
 /* -------------------------------------------------------------------- */
 
+
+
+/* DESKTOP (breakpoint md:) */
+@media (width < 48rem) {
+  @theme {
+
+    /* Typography •••••••••••• */
+    --font-mercure: "Mercure-Regular", "serif";
+    --text-base: 20px;
+    --text-base--line-height: 23px;
+
+    /* Spacing •••••••••••• */
+    --spacing-y-body: 13px;
+    --spacing-x-body: 26px;
+
+    --spacing-header-height: 50px;
+
+  }
+}
+
 /* GLOBAL & MOBILE */
 @theme {
-  
+
   /* Typography •••••••••••• */
   --font-mercure: "Mercure-Regular", "serif";
-  --text-base: 20px;
-  
+  --text-base: 16px;
+  --text-base--line-height:20px;
+
   /* Spacing •••••••••••• */
   --spacing-y-body: 13px;
   --spacing-x-body: 10px;
@@ -43,21 +64,7 @@
 }
 
 
-/* DESKTOP (breakpoint md:) */
-@media (width < 48rem) {
-    @theme {
-
-    /* Spacing •••••••••••• */
-    --spacing-y-body: 13px;
-    --spacing-x-body: 26px;
-
-    --spacing-header-height: 50px;
-
-    }
-}
-
 
 /* -------------------------------------------------------------------- */
 /* RESET */
 /* -------------------------------------------------------------------- */
-
