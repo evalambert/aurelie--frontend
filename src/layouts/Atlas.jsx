@@ -7,6 +7,7 @@ const Atlas = ({ atlases }) => {
 
   // --- 1. État principal : les données filtrées ---
   const [filtered, setFiltered] = useState(atlases);
+  const [activeMedium, setActiveMedium] = useState('all');
 
   // --- 2. Construction des mediums à partir des atlases ---
   const mediumsList = [
@@ -20,6 +21,7 @@ const Atlas = ({ atlases }) => {
 
   // --- 3. Fonction de filtre ---
   const filterMedium = (medium) => {
+    setActiveMedium(medium);
     if (medium === 'all') {
       setFiltered(atlases);
       return;
@@ -30,18 +32,19 @@ const Atlas = ({ atlases }) => {
   };
 
   return (
-    <div className="wrapper-atlas py-y-body px-x-body bg-[#E0E0E0]">
+    <div className="wrapper-atlas py-y-body px-x-body bg-[#E0E0E0] h-[200vh]">
 
       {/* --- 4. Boutons des Mediums --- */}
-      <div className="filters flex gap-4 mb-6">
+      <ul className="filters flex gap-[10px] sticky top-header-height mb-[50px]">
         {mediumsList.map((m) => (
           <FilterAtlasList 
             key={m} 
             mediumName={m} 
             onClick={() => filterMedium(m)} 
+            isActive={activeMedium === m}
           />
         ))}
-      </div>
+      </ul>
 
       {/* --- 5. Affichage filtré --- */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
