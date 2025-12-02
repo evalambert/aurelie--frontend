@@ -1,7 +1,7 @@
 // AtlasCard.jsx
 import { useState } from "react";
 
-const AtlasCard = ({ id, atlas }) => {
+const AtlasCard = ({ id, atlas, onCardClick }) => {
     const medium = atlas.medium;
 
     const imageUrl =
@@ -15,7 +15,7 @@ const AtlasCard = ({ id, atlas }) => {
 
     return (
         <div id={`atlas-${id}`} className="transition-opacity duration-700"
-            style={{ opacity: loaded ? 1 : 0 }}>
+            style={{ opacity: loaded ? 1 : 0 }} onClick={() => onCardClick(imageUrl)} >
             {imageUrl ? (
                 <div className="mb-[10px]">
                     <img className="grayscale block w-full h-auto opacity-50" src={imageUrl} alt={atlas.title} onLoad={() => setLoaded(true)}
