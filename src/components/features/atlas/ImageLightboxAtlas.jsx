@@ -8,9 +8,6 @@ const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
         if (toggleOpen && imageData) {
             // Si imageData est une URL texte, on remplace "medium" par "large"
             let url = imageData;
-            if (typeof imageData === 'string' && imageData.includes('medium')) {
-                url = imageData.replace('medium', 'large');
-            }
             setImageUrl(url);
             setLoaded(false);
         } else {
@@ -22,7 +19,7 @@ const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
 
     return (
         <div 
-            className={`fixed top-0 left-0 w-full h-full cursor-pointer
+            className={`fixed top-0 left-0 w-full h-full cursor-pointer flex items-center justify-center
                         ${toggleOpen ? 'block' : 'hidden'}`}
             onClick={closeLightbox}
         >
@@ -31,8 +28,7 @@ const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
                     src={imageUrl}
                     alt="Image Lightbox"
                     className={`
-                        m-auto block
-                        w-fit h-full object-contain 
+                        m-auto block max-h-screen max-w-screen                        
                         transition-opacity duration-300
                         ${loaded ? 'opacity-100' : 'opacity-0'}
                     `}
