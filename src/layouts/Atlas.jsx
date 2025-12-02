@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import AtlasCard from "../components/features/atlas/AtlasCard.jsx";
 import FilterAtlasList from "../components/features/atlas/FilterAtlasList.jsx";
-import ImageAtlas from "../components/features/atlas/ImageAtlas.jsx";
 import ImageLightboxAtlas from "../components/features/atlas/ImageLightboxAtlas.jsx";
 
 const Atlas = ({ atlases }) => {
@@ -51,7 +50,7 @@ const Atlas = ({ atlases }) => {
     <>
 
     
-      <div className="wrapper-atlas pt-[53px] md:pt-[40px] py-y-body px-x-body bg-[#E0E0E0]">
+      <div className="wrapper-atlas pt-[53px] md:pt-[40px] py-y-body px-x-body bg-[#E0E0E0] min-h-screen">
 
         {/* --- Filters --- */}
         <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] sticky top-[54px] md:top-[40px] mb-[50px]">
@@ -76,9 +75,6 @@ const Atlas = ({ atlases }) => {
         {/* --- Lightbox --- */}
         <ImageLightboxAtlas imageData={imageData} toggleOpen={toggleOpen} closeLightbox={() => setToggleOpen(false)}/>
 
-        {/* {atlases.map((i) => (
-          <ImageAtlas key={i.id} atlas={i} />
-        ))} */}
 
       </div>
     </>
