@@ -1,16 +1,54 @@
 ---
+// src/layouts/About.astro
 
+const { data, lang } = Astro.props;
+
+// Extraire le pseudo Instagram depuis l'URL
+let instaUsername = "";
+if (data.instagram) {
+  const parts = data.instagram.split("/").filter(Boolean); // supprime les "" vides
+  instaUsername = parts[parts.length - 1]; // prend la dernière partie
+}
 ---
 
-<div class="wrapper-about">
-  <h1>Aurélie Gravelat</h1>
-  <p>
-    Aurélie Gravelat is a contemporary artist whose work explores themes of
-    identity, memory, and the human experience through various mediums,
-    including painting, sculpture, and installation art.
+<div
+  class="about--wrapper pl-x-body flex flex-col gap-[60px]"
+>
+  <!-- ABOUT BIO -->
+  <p class="about--bio">
+    {data.bio}
   </p>
 
-  <a href="#landscape">
+  <!-- ABOUT CONTACTS -->
+  <div class="about--contacts">
+    {
+      instaUsername && (
+        <p class="about--instagram">
+          <a
+            class="underline decoration-1 underline-offset-[3px]"
+            href={data.instagram}
+            target="_blank"
+          >
+            @{instaUsername}
+          </a>
+        </p>
+      )
+    }
+    {
+      data.email && (
+        <p class="about--email">
+          <a
+            class="underline decoration-1 underline-offset-[3px]"
+            href={`mailto:${data.email}`}
+          >
+            {data.email}
+          </a>
+        </p>
+      )
+    }
+  </div>
+
+  <!-- <a href="#landscape">
     <span>Link for test</span>
-  </a>
+  </a> -->
 </div>

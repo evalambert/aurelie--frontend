@@ -7,14 +7,14 @@ const { lang } = Astro.params;
 import Header from "./Header.astro";
 ---
 
-<html lang={lang}>
+<html class="scroll-smooth" lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Aurélie Gravelat</title>
   </head>
   <body class="font-mercure text-base">
-    <Header />
+    <Header lang={lang} />
     <main>
       <slot />
     </main>
