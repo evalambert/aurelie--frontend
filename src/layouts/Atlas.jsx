@@ -34,10 +34,10 @@ const Atlas = ({ atlases }) => {
 
   return (
 
-    <div className="wrapper-atlas py-y-body px-x-body bg-[#E0E0E0]">
+    <div className="wrapper-atlas pt-[53px] md:pt-[40px] py-y-body px-x-body bg-[#E0E0E0]">
 
       {/* --- 4. Boutons des Mediums --- */}
-      <ul className="filters flex gap-[10px] sticky top-[40px] mb-[50px]">
+      <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] sticky top-[54px] md:top-[40px] mb-[50px]">
         {mediumsList.map((m) => (
           <FilterAtlasList 
             key={m} 
@@ -49,7 +49,7 @@ const Atlas = ({ atlases }) => {
       </ul>
 
       {/* --- 5. Affichage filtré --- */}
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-[30px]">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-body md:gap-[30px]">
         {filtered.map((p) => (
           <AtlasCard key={p.id} atlas={p} />
         ))}
