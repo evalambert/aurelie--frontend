@@ -38,10 +38,9 @@
 
   /* Spacing •••••••••••• */
   --spacing-y-body: 13px;
-  --spacing-x-body: 26px;
+  --spacing-x-body: 25px;
 
-  --spacing-header-height: 50px;
-
+  --spacing-header-height: 95px;
 }
 
 /* MOBILE (breakpoint md:) */
@@ -62,6 +61,9 @@
 }
 
 
+section:not(section:last-child) {
+  @apply pb-[100px];
+}
 
 
 

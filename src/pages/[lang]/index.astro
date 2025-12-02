@@ -24,7 +24,7 @@ const exhibitions = await fetchApi({
     populate: "*",
   },
   locale: lang,
-  wrappedByKey: "data"  ,
+  wrappedByKey: "data",
 });
 
 const atlases = await fetchApi({
@@ -35,37 +35,36 @@ const atlases = await fetchApi({
   locale: lang,
   wrappedByKey: "data",
 });
-
-
-
 ---
 
 <Layout>
   <div class="mt-header-height">
-    <!-- <section id="landscape">
+    <section id="landscape" class="absolute scroll-mt-header-height">
       <PreviewPanel />
     </section>
 
     <section
       id="about"
-      class="md:grid md:grid-cols-24 md:gap-[10px] border border-blue-500"
+      class="md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 opacity-10 hover:opacity-100 scroll-mt-header-height"
     >
-      <div class="md:col-span-10 lg:col-span-8 border border-blue-200">
+      <div class="md:col-span-10 lg:col-span-8">
         <About data={about} lang={lang} />
       </div>
     </section>
 
     <section
       id="exhibitions"
-      class="grid md:grid-cols-24 border border-orange-500"
+      class="grid md:grid-cols-24 border border-orange-500 scroll-mt-header-height"
     >
-      <div class="md:col-span-10 lg:col-span-10 border border-orange-200">
+      <div
+        class="md:col-span-10 lg:col-span-10 border border-orange-200 scroll-mt-header-height"
+      >
         <Exhibitions client:load data={exhibitions} lang={lang} />
       </div>
-    </section> -->
+    </section>
 
     <section id="atlas">
-      <Atlas client:load={true} atlases={atlases} /> 
+      <Atlas client:load={true} atlases={atlases} />
     </section>
   </div>
 </Layout>

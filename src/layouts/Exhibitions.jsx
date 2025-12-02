@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+// src/layouts/Exhibitions.jsx
+
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { div, p } from "framer-motion/client";
 
 export default function Exhibitions({ data, lang }) {
   const [open, setOpen] = useState([]);
 
+  // --- TOGGLE FUNCTION FOR OPEN/CLOSE EXHIBITIONS ---
   const toggle = (id) => {
     if (open.includes(id)) {
       setOpen(open.filter((x) => x !== id));
@@ -13,124 +15,157 @@ export default function Exhibitions({ data, lang }) {
     }
   };
 
-  function ImageWithOrientation({ src, width, height, alt }) {
-    const orientation = width > height ? "landscape" : "portrait";
-
-    // Col-span dynamique selon orientation
-    const colSpan = orientation === "landscape" ? "col-span-6" : "col-span-4";
-
-    return (
-      <div className={`${colSpan} p-1`}>
-        <img
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          style={{ width: "100%", height: "auto" }} // préserve le ratio
-        />
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <ul className="exhibition-list">
-        {data.map((item) => (
-          <li key={item.id}>
-            {/* --- EXHIBITION LIST --- */}
-            <button
-              onClick={() => toggle(item.id)}
-              className="exhibition-item w-full grid grid-cols-10 text-left"
+    <div className="exhibition--wrapper pl-x-body">
+      <ul className="exhibition--list">
+        {data
+          .slice() // clone pour ne pas muter l'original
+          .sort((a, b) => {
+            const dateA = a.startingDate
+              ? new Date(a.startingDate).getTime()
+              : new Date(a.createdAt).getTime();
+            const dateB = b.startingDate
+              ? new Date(b.startingDate).getTime()
+              : new Date(b.createdAt).getTime();
+            return dateB - dateA; // du plus récent au plus ancien
+          })
+          .map((item) => (
+            <li
+              className="transition-opacity duration-300 opacity-10 hover:opacity-100"
+              key={item.id}
             >
-              <div className="col-span-5 grid grid-cols-[55px_1fr]">
-                <p>{item.year}</p>
-                <h2>{item.title}</h2>
-              </div>
+              {/* --- EXHIBITION LIST --- */}
+              <button
+                onClick={() => toggle(item.id)}
+                className="exhibition--item w-full md:grid md:grid-cols-10 text-left"
+              >
+                <div className="md:grid md:grid-cols-[55px_1fr] md:col-span-5">
+                  <p>{item.year}</p>
+                  <h2>{item.title}</h2>
+                </div>
 
-              <p className="col-span-4">
-                {item.structure}, {item.place}
-              </p>
-            </button>
+                <p className="md:col-span-4">
+                  {item.structure}, {item.place}
+                </p>
+              </button>
 
-            {/* --- ANIMATION --- */}
-            <AnimatePresence initial={false}>
-              {open.includes(item.id) && (
-                <motion.div
-                  initial={{ height: 0 }}
-                  animate={{ height: "auto" }}
-                  exit={{ height: 0 }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  {/* --- EXHIBITION WRAPPER-CONTENTS --- */}
-                  <div className="exhibition-wrapper-content flex flex-col gap-[25px]">
-                    {/* --- EXHIBITION INFO-TEXTE--- */}
-                    <div className="exhibition-infos pt-[12px] flex flex-col gap-[25px]">
-                      <div className="exhibition-text">
-                        {/* Texte principal (Strapi text array) */}
-                        {item.text?.map((block, i) => (
-                          <p key={i}>
-                            {block.children.map((c) => c.text).join(" ")}
-                          </p>
-                        ))}
-                      </div>
-                      <div className="exhibition-credits">
-                        {item.startingDate && item.endingDate && (
-                          <p>
-                            {" "}
-                            {new Date(item.startingDate)
-                              .toISOString()
-                              .slice(0, 10)
-                              .split("-")
-                              .reverse()
-                              .join(".")}{" "}
-                            –{" "}
-                            {new Date(item.endingDate)
-                              .toISOString()
-                              .slice(0, 10)
-                              .split("-")
-                              .reverse()
-                              .join(".")}
-                          </p>
-                        )}
-
-                        {item.curator && <p> Commissariat : {item.curator}</p>}
-                        {item.scenographie && (
-                          <p> Scénographie : {item.scenographie}</p>
-                        )}
-                        {item.copyright && (
-                          <p className=""> Crédits photos © {item.copyright}</p>
-                        )}
-                        {item.link && (
-                          <p>
-                            <a href={item.link} target="_blank">
-                              En savoir plus…
-                            </a>
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* --- EXHIBITION IMAGES--- */}
-                    <div className="exhibition-images ">
-                      {item.exhibitionView?.map((img) => (
-                        <div className="grid grid-cols-10 gap-[10px]">
-                          <ImageWithOrientation
-                            key={img.id}
-                            src={img.url}
-                            alt={img.alternativeText || img.name}
-                            width={img.width}
-                            height={img.height}
-                          />
+              {/* --- ACCORDION ANIMATION --- */}
+              <AnimatePresence initial={false}>
+                {open.includes(item.id) && (
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: "auto" }}
+                    exit={{ height: 0 }}
+                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    {/* --- EXHIBITION WRAPPER-CONTENTS --- */}
+                    <div className="exhibition--wrapper-content pl-[55px] pb-[55px] flex flex-col md:gap-[35px]">
+                      {/* --- EXHIBITION INFO –-- */}
+                      <div className="exhibition--infos md:pt-[12px] flex flex-col md:gap-[25px]">
+                        <div className="exhibition--description">
+                          {item.text?.map((block, i) => (
+                            <p key={i}>
+                              {block.children.map((c) => c.text).join(" ")}
+                            </p>
+                          ))}
                         </div>
-                      ))}
+                        <div className="exhibition--credits">
+                          {item.startingDate && item.endingDate && (
+                            <p>
+                              {" "}
+                              {new Date(item.startingDate)
+                                .toISOString()
+                                .slice(0, 10)
+                                .split("-")
+                                .reverse()
+                                .join(".")}{" "}
+                              –{" "}
+                              {new Date(item.endingDate)
+                                .toISOString()
+                                .slice(0, 10)
+                                .split("-")
+                                .reverse()
+                                .join(".")}
+                            </p>
+                          )}
+                          {item.curator && (
+                            <p> Commissariat : {item.curator}</p>
+                          )}
+                          {item.scenographie && (
+                            <p> Scénographie : {item.scenographie}</p>
+                          )}
+                          {item.copyright && (
+                            <p className="">
+                              {" "}
+                              Crédits photos : © {item.copyright}
+                            </p>
+                          )}
+                          {item.link && (
+                            <p>
+                              <a href={item.link} target="_blank">
+                                En savoir plus…
+                              </a>
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* --- EXHIBITION IMAGES --- */}
+                      <div className="exhibition--images flex flex-col gap-[10px]">
+                        {item.exhibitionView?.map((img) => {
+                          const isLandscape = img.width > img.height;
+                          const widthPercentage = isLandscape ? "70%" : "50%"; // paysage = 70%, portrait = 40%
+
+                          return (
+                            <div
+                              key={img.id}
+                              className="w-full flex justify-left"
+                            >
+                              <img
+                                src={img.url}
+                                alt={img.alternativeText || img.name}
+                                width={img.width}
+                                height={img.height}
+                                className="filter grayscale opacity-50"
+                                style={{
+                                  width: widthPercentage,
+                                  height: "auto",
+                                }}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* --- EXHIBITION WORKS-LIST --- */}
+                      <div className="exhibition--work-list flex flex-col md:gap-[10px]">
+                        <h3>
+                          {lang === "fr"
+                            ? "Œuvres exposées"
+                            : "Works exhibited"}
+                        </h3>
+
+                        <div>
+                          {item.atlasRelation.map((work) => {
+                            // Crée un tableau avec les champs disponibles
+                            const fields = [
+                              work.title,
+                              work.technique,
+                              work.origin,
+                              work.year,
+                            ].filter(Boolean); // filtre les valeurs null ou undefined
+
+                            return <p key={work.id}>{fields.join(", ")}</p>;
+                          })}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </li>
-        ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </li>
+          ))}
       </ul>
     </div>
   );

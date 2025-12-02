@@ -1,29 +1,37 @@
 ---
 //layouts/Header.astro
- 
+
 import LangSwitcher from "../components/common/LangSwitcher.astro";
 
+const { lang } = Astro.props;
 ---
-<header class="fixed top-0 left-0 w-full">
-    <div class="max-md:flex max-md:flex-col md:grid md:grid-cols-24 md:gap-[10px] mt-y-body mx-x-body">
-        <div class="md:col-span-11 max-md:order-2">
-            <ul class="flex gap-[5px]">
-                <li>
-                    <a href="#about">about,</a>
-                </li>
-                <li>
-                    <a href="#exhibitions">exhibitions,</a>
-                </li>
-                <li>
-                    <a href="#atlas">atlas</a>
-                </li>
-            </ul>
-        </div>
-        <div class="flex gap-[100px] max-md:order-1">
-        <a href="#landscape">
-            <h1 class="whitespace-nowrap">Aurélie Gravelat</h1>
-        </a>
-        <LangSwitcher />
-       </div>
+
+<header class="fixed top-0 left-0 w-full z-50">
+  <div
+    class="max-md:flex max-md:flex-col md:grid md:grid-cols-24 md:gap-[10px] mt-y-body mx-x-body"
+  >
+    <div class="md:col-span-11 max-md:order-2">
+      <ul class="flex gap-[5px]">
+        <li>
+          <a href="#about">
+            {lang === "fr" ? "à propos," : "about,"}
+          </a>
+        </li>
+        <li>
+          <a href="#exhibitions"
+            >{lang === "fr" ? "expositions," : "exhibitions,"}</a
+          >
+        </li>
+        <li>
+          <a href="#atlas">atlas</a>
+        </li>
+      </ul>
     </div>
+    <div class="flex gap-[100px] max-md:order-1">
+      <a href="#landscape">
+        <h1 class="whitespace-nowrap">aurélie gravelat</h1>
+      </a>
+      <LangSwitcher />
+    </div>
+  </div>
 </header>

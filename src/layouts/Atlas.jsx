@@ -1,4 +1,4 @@
-// Atlas.jsx
+// src/layouts/Atlas.jsx
 import React, { useState, useEffect } from 'react';
 import AtlasCard from "../components/features/atlas/AtlasCard.jsx";
 import FilterAtlasList from "../components/features/atlas/FilterAtlasList.jsx";
