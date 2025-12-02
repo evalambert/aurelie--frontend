@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import AtlasCard from "../components/features/atlas/AtlasCard.jsx";
 import FilterAtlasList from "../components/features/atlas/FilterAtlasList.jsx";
-import ImageAtlas from "../components/features/atlas/ImageAtlas.jsx";
+import ImageLightboxAtlas from "../components/features/atlas/ImageLightboxAtlas.jsx";
 
 const Atlas = ({ atlases }) => {
 
+  // Filtres •••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
   // --- 1. État principal : les données filtrées ---
   const [filtered, setFiltered] = useState(atlases);
   const [activeMedium, setActiveMedium] = useState('all');
@@ -31,35 +32,52 @@ const Atlas = ({ atlases }) => {
     const result = atlases.filter(a => a.medium?.medium === medium);
     setFiltered(result);
   };
+  // ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+  
+  // Lightbox •••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+  const [imageData, setImageData] = useState(null);
+  const [toggleOpen, setToggleOpen] = useState(false);
+
+  const handleCardClick = (imgData) => {
+    setImageData(imgData);
+    setToggleOpen(true);
+  };
+  // ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
 
   return (
+    <>
 
-    <div className="wrapper-atlas py-y-body px-x-body bg-[#E0E0E0]">
+    
+      <div className="wrapper-atlas pt-[53px] md:pt-[40px] py-y-body px-x-body bg-[#E0E0E0] min-h-screen">
 
-      {/* --- 4. Boutons des Mediums --- */}
-      <ul className="filters flex gap-[10px] sticky top-[40px] mb-[50px]">
-        {mediumsList.map((m) => (
-          <FilterAtlasList 
-            key={m} 
-            mediumName={m} 
-            onClick={() => filterMedium(m)} 
-            isActive={activeMedium === m}
-          />
-        ))}
-      </ul>
+        {/* --- Filters --- */}
+        <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] sticky top-[54px] md:top-[40px] mb-[50px]">
+          {mediumsList.map((m) => (
+            <FilterAtlasList
+              key={m}
+              mediumName={m}
+              onClick={() => filterMedium(m)}
+              isActive={activeMedium === m}
+            />
+          ))}
+        </ul>
 
-      {/* --- 5. Affichage filtré --- */}
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-[30px]">
-        {filtered.map((p) => (
-          <AtlasCard key={p.id} atlas={p} />
-        ))}
+        {/* --- Cards --- */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-body md:gap-[30px]">
+          {filtered.map((p) => (
+            <AtlasCard key={p.id} atlas={p} onCardClick={handleCardClick} />
+          ))}
+        </div>
+
+
+        {/* --- Lightbox --- */}
+        <ImageLightboxAtlas imageData={imageData} toggleOpen={toggleOpen} closeLightbox={() => setToggleOpen(false)}/>
+
+
       </div>
-
-      {atlases.map((i) => (
-        <ImageAtlas key={i.id} atlas={i} />
-      ))}
-
-    </div>
+    </>
   );
 };
 
