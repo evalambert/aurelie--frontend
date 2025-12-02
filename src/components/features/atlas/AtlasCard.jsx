@@ -14,7 +14,6 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
         atlas.Image?.url ||
         null;
 
-    console.log(imageUrl);
     const [loaded, setLoaded] = useState(!imageUrl);
 
 
