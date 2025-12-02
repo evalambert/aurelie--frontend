@@ -19,20 +19,21 @@ const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
 
     return (
         <div 
-            className={`fixed top-0 left-0 w-full h-full cursor-pointer flex items-center justify-center
+            className={`fixed m-auto top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-fit h-fit
                         ${toggleOpen ? 'block' : 'hidden'}`}
-            onClick={closeLightbox}
+            
         >
             {imageUrl && (
                 <img
                     src={imageUrl}
                     alt="Image Lightbox"
                     className={`
-                        m-auto block max-h-screen max-w-screen                        
+                        m-auto block max-h-screen max-w-screen                       
                         transition-opacity duration-300
                         ${loaded ? 'opacity-100' : 'opacity-0'}
                     `}
                     onLoad={() => setLoaded(true)}
+                    onClick={closeLightbox}
                     // si zoom sur image au click
                     // onClick={(e) => e.stopPropagation()} 
                 />
