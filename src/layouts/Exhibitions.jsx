@@ -37,14 +37,14 @@ export default function Exhibitions({ data, lang }) {
               {/* --- EXHIBITION LIST --- */}
               <button
                 onClick={() => toggle(item.id)}
-                className="exhibition--item w-full grid grid-cols-2 md:grid-cols-10 text-left"
+                className="exhibition--item w-full grid grid-cols-[1fr_100px] md:grid-cols-10 text-left"
               >
                 <div className="grid grid-cols-[45px_1fr] md:grid-cols-[55px_1fr] md:col-span-6">
                   <p>{item.year}</p>
                   <h2>{item.title}</h2>
                 </div>
 
-                <p className="md:col-span-4 text-right md:text-left">
+                <p className="md:col-span-4 text-left hidden md:inline">
                   {item.structure}, {item.place}
                 </p>
               </button>
@@ -167,5 +167,4 @@ export default function Exhibitions({ data, lang }) {
       </ul>
     </div>
   );
-  
 }
