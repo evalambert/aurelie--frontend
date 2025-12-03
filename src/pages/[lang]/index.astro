@@ -6,6 +6,7 @@ import About from "../../layouts/About.astro";
 import Atlas from "../../layouts/Atlas.jsx";
 import Exhibitions from "../../layouts/Exhibitions.jsx";
 import PreviewPanel from "../../components/features/PreviewPanel.astro";
+import ScrollSpy from "../../components/common/ScrollSpy.jsx";
 
 const { lang } = Astro.params;
 
@@ -38,14 +39,15 @@ const atlases = await fetchApi({
 ---
 
 <Layout>
-  <div class="mt-header-height">
+  <ScrollSpy client:load />
+  <div>
     <!-- <section id="landscape" class="absolute scroll-mt-header-height">
       <PreviewPanel />
     </section> -->
 
     <section
       id="about"
-      class="md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 opacity-10 hover:opacity-100 scroll-mt-header-height"
+      class="md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 opacity-10 hover:opacity-100 scroll-mt-header-height pt-header-height"
     >
       <div class="md:col-span-10 lg:col-span-8">
         <About data={about} lang={lang} />
@@ -54,10 +56,10 @@ const atlases = await fetchApi({
 
     <section
       id="exhibitions"
-      class="grid md:grid-cols-24 border border-orange-500 scroll-mt-header-height"
+      class="grid md:grid-cols-24 scroll-mt-header-height"
     >
       <div
-        class="md:col-span-10 lg:col-span-10 border border-orange-200 scroll-mt-header-height"
+        class="md:col-span-10 lg:col-span-10 scroll-mt-header-height"
       >
         <Exhibitions client:load data={exhibitions} lang={lang} />
       </div>
