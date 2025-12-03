@@ -19,8 +19,8 @@ export default function PreviewPanel({ slidersLandscape }) {
         <>
             {slides.map((slide, index) => {
                 let mode = "hidden";
-                
                 if (index !== current && index !== next) return null;
+
                 if (index === current) mode = "current";
                 else if (index === next) mode = "next";
                 else mode = "hidden";
