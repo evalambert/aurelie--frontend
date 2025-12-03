@@ -1,4 +1,4 @@
-// WrapperExhibitionPreview.jsx
+// components/features/exhibitions/WrapperExhibitionPreview.jsx
 
 const WrapperExhibitionPreview = () => {
     return (

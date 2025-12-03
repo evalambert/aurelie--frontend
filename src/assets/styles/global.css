@@ -55,16 +55,25 @@
     --spacing-y-body: 13px;
     --spacing-x-body: 10px;
 
-    --spacing-header-height: 53px;
+    --spacing-header-height: 95px;
 
   }
 }
 
+/* -------------------------------------------------------------------- */
+/* Gap & space between sections */
+/* -------------------------------------------------------------------- */
 
 section:not(section:last-child) {
   @apply pb-[100px];
 }
 
+
+@media (width < 48rem) {
+  section:not(section:last-child) {
+    @apply pb-[200px];
+  }
+}
 
 
 /* -------------------------------------------------------------------- */
