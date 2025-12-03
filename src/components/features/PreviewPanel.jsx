@@ -1,6 +1,7 @@
 // PreviewPanel.jsx
 import { useState } from "react";
 import SliderLandscape from "./landscape/SliderLandscape.jsx";
+import { div } from "framer-motion/client";
 // import WrapperExhibitionPreview from "./exhibitions/WrapperExhibitionPreview.jsx";
 
 export default function PreviewPanel({ slidersLandscape }) {
@@ -17,6 +18,7 @@ export default function PreviewPanel({ slidersLandscape }) {
 
     return (
         <>
+
             {slides.map((slide, index) => {
                 let mode = "hidden";
                 if (index !== current && index !== next) return null;
@@ -26,12 +28,14 @@ export default function PreviewPanel({ slidersLandscape }) {
                 else mode = "hidden";
 
                 return (
+
                     <SliderLandscape
                         key={slide.id}
                         slider={slide}
                         mode={mode}
                         onLeave={handleMouseLeave}
                     />
+
                 );
             })}
 

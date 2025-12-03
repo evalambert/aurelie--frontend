@@ -19,7 +19,7 @@ const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
 
     return (
         <div 
-            className={`fixed m-auto top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-fit h-fit
+            className={`fixed m-auto top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-90 w-fit h-fit
                         ${toggleOpen ? 'block' : 'hidden'}`}
             
         >
@@ -29,7 +29,7 @@ const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
                     alt="Image Lightbox"
                     className={`
                         m-auto block max-h-screen max-w-screen                       
-                        transition-opacity duration-300
+                        transition-opacity duration-300 z-90
                         ${loaded ? 'opacity-100' : 'opacity-0'}
                     `}
                     onLoad={() => setLoaded(true)}
