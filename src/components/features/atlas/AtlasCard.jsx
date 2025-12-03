@@ -23,7 +23,7 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
             style={{ opacity: loaded ? 1 : 0 }} onClick={() => onCardClick(imageLightbox)} >
             {imageUrl ? (
                 <div className="mb-[10px]">
-                    <img className="grayscale block w-full h-auto opacity-50" src={imageUrl} alt={atlas.title} onLoad={() => setLoaded(true)}
+                    <img loading="lazy" className="grayscale block w-full h-auto opacity-50" src={imageUrl} alt={atlas.title} onLoad={() => setLoaded(true)}
                         onError={() => setLoaded(true)}
                         ref={(img) => {
                             if (img?.complete) setLoaded(true);
