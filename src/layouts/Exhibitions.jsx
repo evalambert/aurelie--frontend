@@ -60,9 +60,9 @@ export default function Exhibitions({ data, lang }) {
                     className="overflow-hidden"
                   >
                     {/* --- EXHIBITION WRAPPER-CONTENTS --- */}
-                    <div className="exhibition--wrapper-content pb-[55px] flex flex-col gap-[60px] md:gap-[35px]">
+                    <div className="exhibition--wrapper-content  pb-[55px] flex flex-col gap-[60px] md:gap-[35px]">
                       {/* --- EXHIBITION INFO –-- */}
-                      <div className="exhibition--infos pl-[55px] md:pt-[12px] flex flex-col gap-[30px] md:gap-[25px]">
+                      <div className="exhibition--infos pl-[45px] md:pl-[55px] md:pt-[12px] flex flex-col gap-[30px] md:gap-[25px]">
                         <div className="exhibition--description">
                           {item.text?.map((block, i) => (
                             <p key={i}>
@@ -126,6 +126,7 @@ export default function Exhibitions({ data, lang }) {
                                 alt={img.alternativeText || img.name}
                                 width={img.width}
                                 height={img.height}
+                                loading="lazy"
                                 className={
                                   "filter grayscale opacity-50 w-full h-auto " +
                                   (isLandscape ? "md:w-[70%]" : "md:w-[50%]")
