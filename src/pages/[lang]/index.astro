@@ -47,7 +47,7 @@ const sliderLandscape = await fetchApi({
 <Layout>
   <ScrollSpy client:load />
   <div>
-   <!--  <section id="landscape" class="absolute scroll-mt-header-height">
+    <section id="landscape" class="absolute scroll-mt-header-height opacity-100 transition duration-800">
       <PreviewPanel slidersLandscape={sliderLandscape} client:load />
     </section> -->
 
@@ -71,7 +71,7 @@ const sliderLandscape = await fetchApi({
       </div>
     </section>
 
-    <section id="atlas">
+    <section id="atlas" class="mt-[80vh]">
       <Atlas client:load={true} atlases={atlases} />
     </section>
   </div>
