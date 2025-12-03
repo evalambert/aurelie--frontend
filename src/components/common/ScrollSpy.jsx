@@ -1,3 +1,4 @@
+//ScrollSpy.jsx
 import { useEffect } from "react";
 
 export default function ScrollSpy() {
@@ -20,12 +21,15 @@ export default function ScrollSpy() {
 
         let lastScrollY = window.scrollY;
 
+        // ---- SCROLL LOGIC ----
         function setActive(id) {
             links.forEach((l) => l.classList.remove("active"));
+            sections.forEach((s) => s.classList.remove("section-active"));
             const link = document.querySelector(`a[href="#${id}"]`);
             const section = document.querySelector(`section[id="${id}"]`);
             if (section) section.classList.add("section-active");
             if (link) link.classList.add("active");
+            return { link, section };
         }
 
         const observer = new IntersectionObserver(
@@ -54,7 +58,36 @@ export default function ScrollSpy() {
             }
         );
 
+
         sections.forEach((sec) => observer.observe(sec));
+
+        // ---- HOVER LOGIC ----
+        const aboutLink = document.querySelector('a[href="#about"]');
+        const aboutSection = document.querySelector("#about");
+        const navigationWrapper = document.querySelector("header nav");
+
+        if (aboutLink && aboutSection && navigationWrapper) {
+            aboutLink.addEventListener("mouseenter", () => {
+                aboutSection.classList.add("opacity-100");
+            });
+
+            aboutLink.addEventListener("mouseleave", () => {
+                aboutSection.classList.remove("opacity-100");
+            });
+            navigationWrapper.addEventListener("mouseenter", () => {
+                links.forEach((l) => l.classList.remove("active"));
+            });
+            navigationWrapper.addEventListener("mouseleave", () => {
+                const activeSection = document.querySelector("section.section-active");
+
+                if (activeSection) {
+                    const id = activeSection.getAttribute("id");
+                    const link = document.querySelector(`a[href="#${id}"]`);
+
+                    if (link) link.classList.add("active");
+                }
+            });
+        }
 
         return () => observer.disconnect();
     }, []);

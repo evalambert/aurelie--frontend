@@ -40,14 +40,14 @@ const atlases = await fetchApi({
 
 <Layout>
   <ScrollSpy client:load />
-  <div class="mt-header-height">
+  <div>
     <!-- <section id="landscape" class="absolute scroll-mt-header-height">
       <PreviewPanel />
     </section> -->
 
     <section
       id="about"
-      class="md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 opacity-10 hover:opacity-100 scroll-mt-header-height"
+      class="md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 opacity-10 hover:opacity-100 scroll-mt-header-height pt-header-height"
     >
       <div class="md:col-span-10 lg:col-span-8">
         <About data={about} lang={lang} />
