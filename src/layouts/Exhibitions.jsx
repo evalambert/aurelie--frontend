@@ -16,7 +16,7 @@ export default function Exhibitions({ data, lang }) {
   };
 
   return (
-    <div className="exhibition--wrapper pl-x-body">
+    <div className="exhibition--wrapper">
       <ul className="exhibition--list">
         {data
           .slice() // clone pour ne pas muter l'original
@@ -37,14 +37,14 @@ export default function Exhibitions({ data, lang }) {
               {/* --- EXHIBITION LIST --- */}
               <button
                 onClick={() => toggle(item.id)}
-                className="exhibition--item w-full md:grid md:grid-cols-10 text-left"
+                className="exhibition--item w-full grid grid-cols-2 md:grid-cols-10 text-left"
               >
-                <div className="md:grid md:grid-cols-[55px_1fr] md:col-span-5">
+                <div className="grid grid-cols-[45px_1fr] md:grid-cols-[55px_1fr] md:col-span-6">
                   <p>{item.year}</p>
                   <h2>{item.title}</h2>
                 </div>
 
-                <p className="md:col-span-4">
+                <p className="md:col-span-4 text-right md:text-left">
                   {item.structure}, {item.place}
                 </p>
               </button>
@@ -60,9 +60,9 @@ export default function Exhibitions({ data, lang }) {
                     className="overflow-hidden"
                   >
                     {/* --- EXHIBITION WRAPPER-CONTENTS --- */}
-                    <div className="exhibition--wrapper-content pl-[55px] pb-[55px] flex flex-col md:gap-[35px]">
+                    <div className="exhibition--wrapper-content pb-[55px] flex flex-col gap-[60px] md:gap-[35px]">
                       {/* --- EXHIBITION INFO –-- */}
-                      <div className="exhibition--infos md:pt-[12px] flex flex-col md:gap-[25px]">
+                      <div className="exhibition--infos pl-[55px] md:pt-[12px] flex flex-col gap-[30px] md:gap-[25px]">
                         <div className="exhibition--description">
                           {item.text?.map((block, i) => (
                             <p key={i}>
@@ -112,26 +112,24 @@ export default function Exhibitions({ data, lang }) {
                       </div>
 
                       {/* --- EXHIBITION IMAGES --- */}
-                      <div className="exhibition--images flex flex-col gap-[10px]">
+                      <div className="exhibition--images flex flex-col gap-[10px] md:pl-[55px]">
                         {item.exhibitionView?.map((img) => {
                           const isLandscape = img.width > img.height;
-                          const widthPercentage = isLandscape ? "70%" : "50%"; // paysage = 70%, portrait = 40%
 
                           return (
                             <div
                               key={img.id}
-                              className="w-full flex justify-left"
+                              className="w-full flex justify-start"
                             >
                               <img
                                 src={img.url}
                                 alt={img.alternativeText || img.name}
                                 width={img.width}
                                 height={img.height}
-                                className="filter grayscale opacity-50"
-                                style={{
-                                  width: widthPercentage,
-                                  height: "auto",
-                                }}
+                                className={
+                                  "filter grayscale opacity-50 w-full h-auto " +
+                                  (isLandscape ? "md:w-[70%]" : "md:w-[50%]")
+                                }
                               />
                             </div>
                           );
