@@ -1,7 +1,6 @@
 // SliderLandscape.jsx
 import { useState } from "react";
-
-const SliderLandscape = ({ slider, mode, onMouseLeave }) => {
+const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   const [hovered, setHovered] = useState(false);
 
   const imageCoverUrl =
@@ -17,23 +16,41 @@ const SliderLandscape = ({ slider, mode, onMouseLeave }) => {
     hidden: "opacity-0 pointer-events-none",
   }[mode];
 
+  const handlePressStart = (e) => {
+    e.preventDefault(); // empêche le scroll si nécessaire
+    setHovered(true);
+  };
+
+  const handlePressEnd = (e) => {
+    e.preventDefault();
+    setHovered(false);
+    if (onMouseLeave) onMouseLeave(); // change de slide
+  };
+
   return (
     <>
       {/* Image principale */}
       <div
-        className={`slider-landscape fixed top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] md:w-[57.8vw] lg:w-[58vw] z-20 h-[calc(100vh-(var(--spacing-y-body)*2))]  ${opacityClass} ${hovered ? "z-50 !opacity-100 grayscale-0" : "grayscale-100"}`}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => {
-          setHovered(false);
-          if (onMouseLeave) onMouseLeave();
-        }}
+        className={`slider-landscape absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-screen ${opacityClass} ${hovered ? "z-50 !opacity-100 grayscale-0" : "grayscale-100"}`}
+        {...(!isMobile
+          ? {
+              onMouseEnter: () => setHovered(true),
+              onMouseLeave: () => {
+                setHovered(false);
+                if (onMouseLeave) onMouseLeave();
+              },
+            }
+          : {
+              onTouchStart: handlePressStart,
+              onTouchEnd: handlePressEnd,
+            })}
       >
         <img
           src={imageCoverUrl}
-          className={`-mt-[17px] pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${
+          className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${
             isLandscape
-              ? "md:max-w-[calc(57.8vw-var(--spacing-x-body))] lg:max-w-[calc(58vw-var(--spacing-x-body))]"
-              : "pl-[10px]"
+              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-var(--spacing-x-body))] lg:max-w-[calc(58vw-var(--spacing-x-body))]"
+              : "max-w-[80vw] pl-[10px]"
           }`}
           alt=""
           loading="lazy"
@@ -43,7 +60,7 @@ const SliderLandscape = ({ slider, mode, onMouseLeave }) => {
       {/* Background */}
       {imageBackgroundUrl && (
         <div
-          className={`fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${
+          className={`background-landscape fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${
             hovered ? "opacity-100 z-40" : "opacity-0"
           }`}
         >
