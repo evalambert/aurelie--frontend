@@ -53,6 +53,18 @@ export default function ScrollSpy() {
         if (exhibitionsSection && pannel) {
             let lastY = window.scrollY;
 
+            const isOnExhibitions = () => {
+                if (window.scrollY > exhibitionsSection.offsetTop) {
+                    pannel.classList.remove("opacity-100");
+                    pannel.classList.add("opacity-0");
+                } else {
+                    pannel.classList.remove("opacity-0");
+                    pannel.classList.add("opacity-100");
+                }
+            };
+
+            isOnExhibitions();
+            
             const exitObserver = new IntersectionObserver(
                 (entries) => {
                     entries.forEach(entry => {
@@ -96,7 +108,7 @@ export default function ScrollSpy() {
         window.addEventListener("scroll", handleScrollTop);
 
 
-        /* ----------------------------- HOVER LOGIC ----------------------------- */
+        /* ----------------------------- HEADER HOVER LOGIC ----------------------------- */
         const aboutLink = document.querySelector(`a[href="#about"]`);
         const aboutSection = document.querySelector("#about");
         const nav = document.querySelector("header nav");

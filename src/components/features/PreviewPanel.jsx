@@ -1,44 +1,45 @@
 // PreviewPanel.jsx
 import { useState } from "react";
 import SliderLandscape from "./landscape/SliderLandscape.jsx";
-import { div } from "framer-motion/client";
-// import WrapperExhibitionPreview from "./exhibitions/WrapperExhibitionPreview.jsx";
 
 export default function PreviewPanel({ slidersLandscape }) {
+  const slides = slidersLandscape.slideLandscape || [];
+  const [current, setCurrent] = useState(0);
+  const [isHovered, setIsHovered] = useState(false); // pour savoir si la souris est sur le panel
 
-    // SLIDER ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
-    const slides = slidersLandscape.slideLandscape || [];
-    const [current, setCurrent] = useState(0);
-    const next = (current + 1) % slides.length;
+  const nextIndex = (current + 1) % slides.length;
 
-    const handleMouseLeave = () => {
-        console.log("coucou 8!8");
-        setCurrent(next);
-    };
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
 
-    return (
-        <>
+  const handleMouseLeave = () => {
+    // On ne change de slide que si la souris est entrée avant
+    if (isHovered) {
+      setCurrent(nextIndex);
+      setIsHovered(false); // reset hover pour le prochain cycle
+    }
+  };
 
-            {slides.map((slide, index) => {
-                let mode = "hidden";
-                if (index !== current && index !== next) return null;
+  return (
+    <div
+      className="preview-panel"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {slides.map((slide, index) => {
+        if (index !== current && index !== nextIndex) return null;
+        const mode = index === current ? "current" : "next";
 
-                if (index === current) mode = "current";
-                else if (index === next) mode = "next";
-                else mode = "hidden";
-
-                return (
-
-                    <SliderLandscape
-                        key={slide.id}
-                        slider={slide}
-                        mode={mode}
-                        onLeave={handleMouseLeave}
-                    />
-
-                );
-            })}
-
-        </>
-    );
+        return (
+          <SliderLandscape
+            key={slide.id}
+            slider={slide}
+            mode={mode}
+            // onMouseLeave n'est plus nécessaire ici
+          />
+        );
+      })}
+    </div>
+  );
 }
