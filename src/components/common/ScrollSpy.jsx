@@ -47,51 +47,53 @@ export default function ScrollSpy() {
         sections.forEach((sec) => observer.observe(sec));
 
         /* ----------------------------- EXIT / ENTER BACK EXHIBITIONS ----------------------------- */
-        const exhibitionsSection = document.querySelector("#exhibitions");
-        const pannel = document.querySelector("#landscape");
+        if (window.innerWidth >= 1024) {
+            const exhibitionsSection = document.querySelector("#exhibitions");
+            const pannel = document.querySelector("#landscape");
 
-        if (exhibitionsSection && pannel) {
-            let lastY = window.scrollY;
+            if (exhibitionsSection && pannel) {
+                let lastY = window.scrollY;
 
-            const isOnExhibitions = () => {
-                if (window.scrollY > exhibitionsSection.offsetTop) {
-                    pannel.classList.remove("opacity-100");
-                    pannel.classList.add("opacity-0");
-                } else {
-                    pannel.classList.remove("opacity-0");
-                    pannel.classList.add("opacity-100");
-                }
-            };
+                const isOnExhibitions = () => {
+                    if (window.scrollY > exhibitionsSection.offsetTop) {
+                        pannel.classList.remove("opacity-100");
+                        pannel.classList.add("opacity-0");
+                    } else {
+                        pannel.classList.remove("opacity-0");
+                        pannel.classList.add("opacity-100");
+                    }
+                };
 
-            isOnExhibitions();
-            
-            const exitObserver = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach(entry => {
-                        const scrollingDown = window.scrollY > lastY;
-                        const scrollingUp = window.scrollY < lastY;
-                        lastY = window.scrollY;
+                isOnExhibitions();
+                
+                const exitObserver = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach(entry => {
+                            const scrollingDown = window.scrollY > lastY;
+                            const scrollingUp = window.scrollY < lastY;
+                            lastY = window.scrollY;
 
-                        if (!entry.isIntersecting && scrollingDown) {
-                            // quand on sort vers le bas
-                            pannel.classList.remove("opacity-100");
-                            pannel.classList.add("opacity-0");
-                        }
+                            if (!entry.isIntersecting && scrollingDown) {
+                                // quand on sort vers le bas
+                                pannel.classList.remove("opacity-100");
+                                pannel.classList.add("opacity-0");
+                            }
 
-                        if (entry.isIntersecting && scrollingUp) {
-                            // quand on entre par le haut (enter-back)
-                            pannel.classList.remove("opacity-0");
-                            pannel.classList.add("opacity-100");
-                        }
-                    });
-                },
-                {
-                    rootMargin: "0px",
-                    threshold: 0,
-                }
-            );
+                            if (entry.isIntersecting && scrollingUp) {
+                                // quand on entre par le haut (enter-back)
+                                pannel.classList.remove("opacity-0");
+                                pannel.classList.add("opacity-100");
+                            }
+                        });
+                    },
+                    {
+                        rootMargin: "0px",
+                        threshold: 0,
+                    }
+                );
 
-            exitObserver.observe(exhibitionsSection);
+                exitObserver.observe(exhibitionsSection);
+            }
         }
         /* ----------------------------- FORCE ABOUT AT TOP ----------------------------- */
         function handleScrollTop() {
