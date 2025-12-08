@@ -20,6 +20,8 @@ export default function PreviewPanel({ slidersLandscape }) {
     if (isHovered) {
       setCurrent(nextIndex);
       setIsHovered(false);
+    }else if (isMobile) {
+      setCurrent(nextIndex);
     }
   };
 
