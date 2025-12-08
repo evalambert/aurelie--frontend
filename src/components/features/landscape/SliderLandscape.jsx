@@ -17,14 +17,15 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   }[mode];
 
   const handlePressStart = (e) => {
-    e.preventDefault(); // fonctionne parfaitement avec pointer events
+    // e.preventDefault(); // empêche le scroll si nécessaire
     setHovered(true);
   };
 
   const handlePressEnd = (e) => {
     e.preventDefault();
     setHovered(false);
-    if (onMouseLeave) onMouseLeave(); // change le slide
+    onMouseLeave(); // change de slide
+    console.log("couuucouuu");
   };
 
   return (
@@ -41,15 +42,15 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
             },
           }
           : {
-            onPointerDown: handlePressStart,
-            onPointerUp: handlePressEnd
+            onTouchStart: handlePressStart,
+            onTouchEnd: handlePressEnd,
           })}
       >
         <img
           src={imageCoverUrl}
           className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
-            ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-var(--spacing-x-body))] lg:max-w-[calc(58vw-var(--spacing-x-body))]"
-            : "max-w-[80vw] pl-[10px]"
+              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-var(--spacing-x-body))] lg:max-w-[calc(58vw-var(--spacing-x-body))]"
+              : "max-w-[80vw] pl-[10px]"
             }`}
           alt=""
           loading="lazy"
@@ -59,7 +60,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
       {/* Background */}
       {imageBackgroundUrl && (
         <div
-          className={`background-landscape fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${hovered ? "z-70 opacity-100" : "opacity-0"
+          className={`background-landscape fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${hovered ? "opacity-100 z-70" : "opacity-0"
             }`}
         >
           <img

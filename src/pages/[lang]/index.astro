@@ -47,13 +47,13 @@ const sliderLandscape = await fetchApi({
 <Layout>
   <ScrollSpy client:load />
   <div>
-    <section id="landscape" class=" h-[100svh]  border border-amber-600 relative md:absolute scroll-mt-header-height opacity-100 transition duration-800">
+    <section id="landscape" class=" h-[100svh] relative md:absolute scroll-mt-header-height opacity-100 transition duration-800">
       <PreviewPanel slidersLandscape={sliderLandscape} client:load />
     </section>
 
     <section
       id="about"
-      class="px-x-body md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 opacity-10 hover:opacity-100 scroll-mt-header-height pt-header-height"
+      class="px-x-body md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 md:opacity-10 hover:opacity-100 scroll-mt-header-height pt-header-height"
     >
       <div class="md:col-span-10 lg:col-span-8">
         <About data={about} lang={lang} />
