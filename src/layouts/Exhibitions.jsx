@@ -42,6 +42,11 @@ export default function Exhibitions({ data, lang }) {
             />
           ))}
       </ul>
+
+
+
+
+      
     </div>
   );
 }
