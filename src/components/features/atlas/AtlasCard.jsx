@@ -1,44 +1,56 @@
-// AtlasCard.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getResponsiveImageUrl } from "../../../assets/scripts/libs/getImageUrl";
 
 const AtlasCard = ({ id, atlas, onCardClick }) => {
-    const medium = atlas.medium;
+  const [loaded, setLoaded] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
 
-    const imageUrl =
-        atlas.Image?.formats?.medium?.url ||
-        atlas.Image?.url ||
-        null;
+  useEffect(() => {
+    const updateImage = () => {
+      const width = window.innerWidth;
+      const url = getResponsiveImageUrl(atlas.Image, "card", width);
+      setImageUrl(url);
+    };
+    updateImage();
+    window.addEventListener("resize", updateImage);
+    return () => window.removeEventListener("resize", updateImage);
+  }, [atlas.Image]);
 
-    const imageLightbox =
-        atlas.Image?.formats?.xlarge?.url ||
-        atlas.Image?.url ||
-        null;
-
-    const [loaded, setLoaded] = useState(!imageUrl);
-
-
-
-    return (
-        <div id={`atlas-${id}`} className="transition-opacity duration-500 cursor-pointer"
-            style={{ opacity: loaded ? 1 : 0 }} onClick={() => onCardClick(imageLightbox)} >
-            {imageUrl ? (
-                <div className="mb-[10px]">
-                    <img loading="lazy" className="grayscale block w-full h-auto opacity-50" src={imageUrl} alt={atlas.title} onLoad={() => setLoaded(true)}
-                        onError={() => setLoaded(true)}
-                        ref={(img) => {
-                            if (img?.complete) setLoaded(true);
-                        }} />
-                </div>
-            ) : (<div></div>)}
-            <div>
-                <h2 className="inline">{atlas.title}</h2>
-                {medium && <span className="inline lowercase">, {medium.medium}</span>}
-                {atlas.format && <span className="inline lowercase">, {atlas.format}</span>}
-                {atlas.year && <span className="inline">, {atlas.year}</span>}
-                {atlas.duration && <span className="inline">, {atlas.duration}</span>}
-            </div>
+  return (
+    <div
+      id={`atlas-${id}`}
+      className="transition-opacity duration-500 cursor-pointer"
+      style={{ opacity: loaded ? 1 : 0 }}
+      onClick={() => onCardClick(atlas.Image)}
+    >
+      {imageUrl ? (
+        <div className="mb-[10px]">
+          <img
+            loading="lazy"
+            className="grayscale block w-full h-auto opacity-50"
+            src={imageUrl}
+            alt={atlas.title}
+            onLoad={() => setLoaded(true)}
+            onError={() => setLoaded(true)}
+            ref={(img) => {
+              if (img?.complete) setLoaded(true);
+            }}
+          />
         </div>
-    );
+      ) : null}
+      <div>
+        <h2 className="inline">{atlas.title}</h2>
+        {atlas.medium && (
+          <span className="inline lowercase">, {atlas.medium.medium}</span>
+        )}
+        {atlas.format && (
+          <span className="inline lowercase">, {atlas.format}</span>
+        )}
+        {atlas.year && <span className="inline">, {atlas.year}</span>}
+        {atlas.duration && <span className="inline">, {atlas.duration}</span>}
+      </div>
+    </div>
+  );
 };
 
 export default AtlasCard;
