@@ -165,6 +165,9 @@ export default function Exhibitions({ data, lang }) {
                 )}
               </AnimatePresence>
             </li>
+            
+            
+
           ))}
       </ul>
     </div>
