@@ -1,14 +1,33 @@
 // SliderLandscape.jsx
 import { useState, useRef, useEffect } from "react";
+import { getResponsiveImageUrl } from "../../../assets/scripts/libs/getImageUrl";
 
 const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   const [hovered, setHovered] = useState(false);
+  const [coverUrl, setCoverUrl] = useState(null);
+  const [backgroundUrl, setBackgroundUrl] = useState(null);
   const rootRef = useRef(null);
 
-  const imageCoverUrl =
-    slider.cover?.formats?.large?.url || slider.cover?.url || "";
-  const imageBackgroundUrl =
-    slider.background?.formats?.xlarge?.url || slider.background?.url || "";
+  useEffect(() => {
+    const updateImages = () => {
+      const width = window.innerWidth;
+
+      const cover = getResponsiveImageUrl(slider.cover, "lightbox", width);
+      const background = getResponsiveImageUrl(
+        slider.background,
+        "lightbox",
+        width
+      );
+
+      setCoverUrl(cover);
+      setBackgroundUrl(background);
+    };
+
+    updateImages();
+    window.addEventListener("resize", updateImages);
+
+    return () => window.removeEventListener("resize", updateImages);
+  }, [slider.cover, slider.background]);
 
   const isLandscape = slider.cover?.width > slider.cover?.height;
   const isScrolling = useRef(false);
@@ -100,44 +119,49 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
         ref={rootRef}
         // ajout de touch-action none inline pour forcer Safari à envoyer les events
         style={{ WebkitTapHighlightColor: "transparent" }}
-        className={`slider-landscape absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] ${opacityClass} ${hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"}`}
+        className={`slider-landscape absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] ${opacityClass} ${
+          hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"
+        }`}
         // on conserve tes handlers react au cas où
         {...(!isMobile
           ? {
-            onMouseEnter: () => setHovered(true),
-            onMouseLeave: () => {
-              setHovered(false);
-              if (onMouseLeave) onMouseLeave();
-            },
-          }
+              onMouseEnter: () => setHovered(true),
+              onMouseLeave: () => {
+                setHovered(false);
+                if (onMouseLeave) onMouseLeave();
+              },
+            }
           : {
-            onTouchStart: handlePressStart,
-            onTouchEnd: handlePressEnd,
-            // onTouchMove: () => {}, // plus nécessaire ici car on a natif
-            onTouchCancel: () => {
-              setHovered(false);
-            },
-            // onPointerDown & up natifs aussi ajoutés via useEffect
-          })}
+              onTouchStart: handlePressStart,
+              onTouchEnd: handlePressEnd,
+              // onTouchMove: () => {}, // plus nécessaire ici car on a natif
+              onTouchCancel: () => {
+                setHovered(false);
+              },
+              // onPointerDown & up natifs aussi ajoutés via useEffect
+            })}
       >
         <img
-          src={imageCoverUrl}
+          src={coverUrl}
           draggable="false"
-          className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
-            ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-var(--spacing-x-body))] lg:max-w-[calc(58vw-var(--spacing-x-body))]"
-            : "max-w-[80vw] pl-[10px]"
-            }`}
+          className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${
+            isLandscape
+              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-var(--spacing-x-body))] lg:max-w-[calc(58vw-var(--spacing-x-body))]"
+              : "max-w-[80vw] pl-[10px]"
+          }`}
           alt=""
           loading="lazy"
         />
       </div>
 
-      {imageBackgroundUrl && (
+      {backgroundUrl && (
         <div
-          className={`background-landscape fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${hovered ? "opacity-100 z-70" : "opacity-0"}`}
+          className={`background-landscape fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${
+            hovered ? "opacity-100 z-70" : "opacity-0"
+          }`}
         >
           <img
-            src={imageBackgroundUrl}
+            src={backgroundUrl}
             alt=""
             className="w-screen h-screen object-cover"
             loading="lazy"
