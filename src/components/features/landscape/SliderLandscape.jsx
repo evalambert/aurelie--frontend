@@ -7,7 +7,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
     slider.cover?.formats?.large?.url || slider.cover?.url || "";
   const imageBackgroundUrl =
     slider.background?.formats?.xlarge?.url || slider.background?.url || "";
-
+ 
   const isLandscape = slider.cover?.width > slider.cover?.height;
 
   const opacityClass = {
