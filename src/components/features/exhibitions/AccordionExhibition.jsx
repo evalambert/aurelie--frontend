@@ -94,7 +94,16 @@ export default function AccordionExhibition({
             </div>
           </motion.div>
         )}
+
+
+
+        
       </AnimatePresence>
+
+
+
+
+
     </li>
   );
 }
