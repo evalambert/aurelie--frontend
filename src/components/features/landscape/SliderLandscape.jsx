@@ -7,7 +7,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
     slider.cover?.formats?.large?.url || slider.cover?.url || "";
   const imageBackgroundUrl =
     slider.background?.formats?.xlarge?.url || slider.background?.url || "";
-
+ 
   const isLandscape = slider.cover?.width > slider.cover?.height;
 
   const opacityClass = {
@@ -32,7 +32,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
     <>
       {/* Image principale */}
       <div
-        className={`slider-landscape absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] ${opacityClass} ${hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"}`}
+        className={`slider-landscape border-2 border-red-500 absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] ${opacityClass} ${hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"}`}
         {...(!isMobile
           ? {
             onMouseEnter: () => setHovered(true),
