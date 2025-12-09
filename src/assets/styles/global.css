@@ -83,3 +83,11 @@ section:not(section:last-child) {
 header nav a.active {
   @apply underline decoration-1 underline-offset-[3px];
 }
+
+
+img {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-drag: none;     /* Safari, Chrome */
+  user-drag: none;             /* Autres navigateurs */
+}
