@@ -138,13 +138,14 @@ export default function Exhibitions({ data, lang }) {
                       </div>
 
                       {/* --- EXHIBITION WORKS-LIST --- */}
-                      <div className="exhibition--work-list flex flex-col md:gap-[10px]">
-                        <h3>
-                          {lang === "fr"
-                            ? "Œuvres exposées"
-                            : "Works exhibited"}
-                        </h3>
-
+                      <div className="exhibition--atlas-list flex flex-col md:gap-[10px]">
+                        {item.atlasRelation.length > 0 && (
+                          <h3>
+                            {lang === "fr"
+                              ? "Œuvres exposées :"
+                              : "Works exhibited :"}
+                          </h3>
+                        )}
                         <div>
                           {item.atlasRelation.map((work) => {
                             // Crée un tableau avec les champs disponibles
@@ -164,6 +165,9 @@ export default function Exhibitions({ data, lang }) {
                 )}
               </AnimatePresence>
             </li>
+            
+            
+
           ))}
       </ul>
     </div>
