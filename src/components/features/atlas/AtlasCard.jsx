@@ -1,20 +1,9 @@
-import { useState, useEffect } from "react";
-import { getResponsiveImageUrl } from "../../../assets/scripts/libs/getImageUrl";
+import { useState } from "react";
+import { useResponsiveImage } from "../../../hooks/useResponsiveImage";
 
 const AtlasCard = ({ id, atlas, onCardClick }) => {
   const [loaded, setLoaded] = useState(false);
-  const [imageUrl, setImageUrl] = useState(null);
-
-  useEffect(() => {
-    const updateImage = () => {
-      const width = window.innerWidth;
-      const url = getResponsiveImageUrl(atlas.Image, "card", width);
-      setImageUrl(url);
-    };
-    updateImage();
-    window.addEventListener("resize", updateImage);
-    return () => window.removeEventListener("resize", updateImage);
-  }, [atlas.Image]);
+  const imageUrl = useResponsiveImage(atlas.Image, "card");
 
   return (
     <div
