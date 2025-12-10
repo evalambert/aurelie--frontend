@@ -1,4 +1,5 @@
 //components/features/exhibitions/AtlasList.jsx
+import { previewStore } from "../../../stores/previewStore";
 
 export default function AtlasList({ item, lang }) {
   return (
@@ -9,23 +10,19 @@ export default function AtlasList({ item, lang }) {
       <div>
         {item.atlasRelation?.map((work) => {
           if (!work.Image) return null;
-          const url =
-            work.Image.formats?.small?.url ||
-            work.Image.formats?.medium?.url ||
-            work.Image.url;
-          // Crée un tableau avec les champs disponibles
-          const fields = [
-            work.title,
-            work.technique,
-            work.origin,
-            work.year,
-          ].filter(Boolean); // filtre les valeurs null ou undefined
+          const url = work.Image.formats?.large?.url || work.Image.url;
+          const fields = [work.title, work.technique, work.origin, work.year].filter(Boolean);
 
           return (
-            <>
-            <p key={work.id}>{fields.join(", ")}</p>
-            <img src={url} class="w-[100px] h-auto border" alt={work.title} />
-            </>
+            <div key={work.id} className="flex items-center gap-2">
+              <p
+                className="cursor-pointer"
+                onPointerEnter={() => previewStore.setHoverImage(url)}
+                onPointerLeave={() => previewStore.clearHover()}
+              >
+                {fields.join(", ")}
+              </p>
+            </div>
           );
         })}
       </div>

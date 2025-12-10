@@ -12,7 +12,7 @@ export default function AccordionExhibition({
   motion,
   AnimatePresence,
 }) {
-  
+
 
   return (
     <li
@@ -21,7 +21,30 @@ export default function AccordionExhibition({
     >
       {/* --- EXHIBITION LIST --- */}
       <button
-        onClick={() => {toggle(item.id);previewStore.setImages(item.exhibitionView);}}
+        onClick={() => {
+          // Récupère les images de l'expo
+          const expoImages = item.exhibitionView || [];
+
+          // Récupère les images des œuvres de l'Atlas
+          // Récupère les images des œuvres de l'Atlas sous forme d'objets standardisés
+          const atlasImages = item.atlasRelation
+            ?.map((work) => {
+              const url = work.Image?.formats?.large?.url || work.Image?.url;
+              if (!url) return null;
+              return {
+                id: work.id, // identifiant unique
+                url,        // URL de l'image
+              };
+            })
+            .filter(Boolean) || [];
+
+          // Combine les deux
+          const allImages = [...expoImages, ...atlasImages];
+          previewStore.setImages(allImages);
+
+          // Toggle l'accordion
+          toggle(item.id);
+        }}
         className="exhibition--item w-full grid grid-cols-[1fr_100px] md:grid-cols-10 text-left"
       >
         <div className="grid grid-cols-[45px_1fr] md:grid-cols-[55px_1fr] md:col-span-6">
