@@ -146,7 +146,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
           draggable="false"
           className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${
             isLandscape
-              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-var(--spacing-x-body))] lg:max-w-[calc(58vw-var(--spacing-x-body))]"
+              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
               : "max-w-[80vw] pl-[10px]"
           }`}
           alt=""
