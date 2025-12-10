@@ -1,3 +1,4 @@
+// useResponsiveImage.js
 import { useState, useEffect } from "react";
 import { getResponsiveImageUrl } from "../assets/scripts/libs/getImageUrl";
 

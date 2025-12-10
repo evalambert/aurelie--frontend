@@ -1,6 +1,7 @@
 // PreviewPanel.jsx
 import { useState, useEffect } from "react";
 import SliderLandscape from "./landscape/SliderLandscape.jsx";
+import ImageResponsivePreviewPannel from "../common/ImageResponsivePreviewPannel.jsx";
 
 export default function PreviewPanel({ slidersLandscape }) {
 
@@ -20,7 +21,7 @@ export default function PreviewPanel({ slidersLandscape }) {
         hoverImage: e.detail.hoverImage || null
       });
     };
-  
+
     window.addEventListener("preview:update", handler);
     return () => window.removeEventListener("preview:update", handler);
   }, []);
@@ -61,17 +62,15 @@ export default function PreviewPanel({ slidersLandscape }) {
           (preview.hoverImage ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")
         }
       >
-        {preview.images.map((img) => {
-          const url = img.formats?.large?.url || img.url;
-          return (
-            <img
-              key={img.id}
-              src={url}
-              className={`max-w-full max-h-full object-contain absolute top-y-body left-0 transition-opacity duration-300 ${url === preview.hoverImage ? "opacity-100" : "opacity-0"
-                }`}
-            />
-          );
-        })}
+        {preview.images.map((img) => (
+          <ImageResponsivePreviewPannel
+            key={img.id}
+            img={img}
+            isVisible={
+              (img.formats?.large?.url || img.url) === preview.hoverImage
+            }
+          />
+        ))}
       </div>
       <div
         className={
