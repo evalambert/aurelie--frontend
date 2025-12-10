@@ -1,6 +1,7 @@
 //components/features/exhibitions/AccordionExhibition.jsx
 import { useState } from "react";
 import ImagesExhibition from "./ImagesExhibition.jsx";
+import { previewStore } from "../../../stores/previewStore.js";
 import AtlasList from "./AtlasList.jsx";
 
 export default function AccordionExhibition({
@@ -11,6 +12,8 @@ export default function AccordionExhibition({
   motion,
   AnimatePresence,
 }) {
+  
+
   return (
     <li
       className="transition-opacity duration-300 opacity-10 hover:opacity-100"
@@ -18,7 +21,7 @@ export default function AccordionExhibition({
     >
       {/* --- EXHIBITION LIST --- */}
       <button
-        onClick={() => toggle(item.id)}
+        onClick={() => {toggle(item.id);previewStore.setImages(item.exhibitionView);}}
         className="exhibition--item w-full grid grid-cols-[1fr_100px] md:grid-cols-10 text-left"
       >
         <div className="grid grid-cols-[45px_1fr] md:grid-cols-[55px_1fr] md:col-span-6">

@@ -87,7 +87,13 @@ header nav a.active {
 
 img {
   -webkit-user-select: none;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-drag: none;     /* Safari, Chrome */
-  user-drag: none;             /* Autres navigateurs */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-drag: none;
+  /* Safari, Chrome */
+  user-drag: none;
+  /* Autres navigateurs */
+  transform: translateZ(0);
+  will-change: transform;
+
 }
