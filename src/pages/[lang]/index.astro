@@ -6,7 +6,8 @@ import About from "../../layouts/About.astro";
 import Atlas from "../../layouts/Atlas.jsx";
 import Exhibitions from "../../layouts/Exhibitions.jsx";
 import PreviewPanel from "../../components/features/PreviewPanel.jsx";
-import ScrollSpy from "../../components/common/ScrollSpy.jsx";
+import ScrollAnimations from "../../components/features/ScrollAnimations.jsx";
+
 
 const { lang } = Astro.params;
 
@@ -47,11 +48,11 @@ const sliderLandscape = await fetchApi({
 ---
 
 <Layout>
-  <ScrollSpy client:load />
+  
   <div>
-    <section id="landscape" class=" h-[100svh] relative md:absolute scroll-mt-header-height opacity-100 transition duration-800">
+    <div id="landscape" class=" h-[100svh] relative md:absolute scroll-mt-header-height opacity-100 transition duration-800">
       <PreviewPanel slidersLandscape={sliderLandscape} client:load />
-    </section>
+    </div>
 
     <section
       id="about"
@@ -77,4 +78,5 @@ const sliderLandscape = await fetchApi({
       <Atlas client:load={true} atlases={atlases} />
     </section>
   </div>
+  <ScrollAnimations client:load />
 </Layout>
