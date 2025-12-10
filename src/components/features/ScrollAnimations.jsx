@@ -53,11 +53,22 @@ export default function ScrollAnimations() {
                             sections.forEach((s) => s.classList.remove("active"));
                             section.classList.add("active");
                             updateActiveLink(sectionId);
+                            if (sectionId == "exhibitions") {
+                                // Show landscape
+                                const landscape = document.querySelector("#landscape");
+                                landscape.classList.remove("opacity-0");
+                                landscape.classList.add("opacity-100");
+                            }
                         },
                         onLeave: () => {
                             if (sectionId == "exhibitions") {
                                 console.log(`Leave section: ${sectionId}`);
                                 updateActiveLink("atlas");
+
+                                // Hide landscape
+                                const landscape = document.querySelector("#landscape");
+                                landscape.classList.remove("opacity-100");
+                                landscape.classList.add("opacity-0");
                             }
                         },
                         onLeaveBack: () => {
