@@ -9,6 +9,8 @@ export default function ScrollAnimations() {
         import("gsap").then((gsapModule) => {
             const { gsap } = gsapModule;
             import("gsap/ScrollTrigger").then((ScrollTriggerModule) => {
+
+
                 const { ScrollTrigger } = ScrollTriggerModule;
                 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +25,7 @@ export default function ScrollAnimations() {
                 const updateActiveLink = (activeSectionId) => {
                     const navLinks = document.querySelectorAll("header nav ul li a");
 
-                    navLinks.forEach((link) => {                        
+                    navLinks.forEach((link) => {
                         const href = link.getAttribute("href");
                         const linkSectionId = href ? href.replace("#", "") : null;
 
@@ -43,15 +45,15 @@ export default function ScrollAnimations() {
                         trigger: section,
                         start: "top 97px",
                         end: "bottom 97px",
-                        markers: true, // Affiche les markers pour visualiser les triggers
+                        // markers: true, // Affiche les markers pour visualiser les triggers
                         onEnter: () => {
                             console.log(`Enter section: ${sectionId}`);
-                            
+
                             // Fonction déclenchée uniquement sur mobile
                             if (isMobile()) {
                                 console.log(`📱 Mobile: Enter section ${sectionId}`);
                             }
-                            
+
                             sections.forEach((s) => s.classList.remove("active"));
                             section.classList.add("active");
                             updateActiveLink(sectionId);
@@ -65,9 +67,11 @@ export default function ScrollAnimations() {
                             updateActiveLink(sectionId);
                             if (sectionId == "exhibitions") {
                                 // Show landscape
-                                const landscape = document.querySelector("#landscape");
-                                landscape.classList.remove("opacity-0");
-                                landscape.classList.add("opacity-100");
+                                if (!isMobile()) {
+                                    const landscape = document.querySelector("#landscape");
+                                    landscape.classList.remove("opacity-0");
+                                    landscape.classList.add("opacity-100");
+                                }
                             }
                         },
                         onLeave: () => {
@@ -76,9 +80,11 @@ export default function ScrollAnimations() {
                                 updateActiveLink("atlas");
 
                                 // Hide landscape
-                                const landscape = document.querySelector("#landscape");
-                                landscape.classList.remove("opacity-100");
-                                landscape.classList.add("opacity-0");
+                                if (!isMobile()) {
+                                    const landscape = document.querySelector("#landscape");
+                                    landscape.classList.remove("opacity-100");
+                                    landscape.classList.add("opacity-0");
+                                }
                             }
                         },
                         onLeaveBack: () => {
@@ -91,7 +97,7 @@ export default function ScrollAnimations() {
                     });
                 });
 
-                console.log("ScrollAnimations initialized");
+                
             });
         });
 
@@ -111,7 +117,7 @@ export default function ScrollAnimations() {
                 navLinks.forEach((l) => {
                     if (l.getAttribute("href") === `#${activeSectionId}`) {
                         l.classList.add("underline");
-                    } 
+                    }
                 });
             }
         });
