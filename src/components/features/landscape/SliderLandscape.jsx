@@ -1,33 +1,13 @@
 // SliderLandscape.jsx
 import { useState, useRef, useEffect } from "react";
-import { getResponsiveImageUrl } from "../../../assets/scripts/libs/getImageUrl";
+import { useResponsiveImage } from "../../../hooks/useResponsiveImage";
 
 const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   const [hovered, setHovered] = useState(false);
-  const [coverUrl, setCoverUrl] = useState(null);
-  const [backgroundUrl, setBackgroundUrl] = useState(null);
+  const coverUrl = useResponsiveImage(slider.cover, "cover"); // ← OK
+  const backgroundUrl = useResponsiveImage(slider.background, "lightbox");
+
   const rootRef = useRef(null);
-
-  useEffect(() => {
-    const updateImages = () => {
-      const width = window.innerWidth;
-
-      const cover = getResponsiveImageUrl(slider.cover, "lightbox", width);
-      const background = getResponsiveImageUrl(
-        slider.background,
-        "lightbox",
-        width
-      );
-
-      setCoverUrl(cover);
-      setBackgroundUrl(background);
-    };
-
-    updateImages();
-    window.addEventListener("resize", updateImages);
-
-    return () => window.removeEventListener("resize", updateImages);
-  }, [slider.cover, slider.background]);
 
   const isLandscape = slider.cover?.width > slider.cover?.height;
   const isScrolling = useRef(false);
