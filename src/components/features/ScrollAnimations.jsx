@@ -14,6 +14,11 @@ export default function ScrollAnimations() {
 
                 let sections = [...document.querySelectorAll("section[id]")];
 
+                // Fonction pour détecter si on est sur mobile
+                const isMobile = () => {
+                    return window.innerWidth <= 768; // Ajustez la valeur selon vos besoins (768px est un breakpoint mobile standard)
+                };
+
                 // Fonction pour mettre à jour le soulignement des liens de navigation
                 const updateActiveLink = (activeSectionId) => {
                     const navLinks = document.querySelectorAll("header nav ul li a");
@@ -41,6 +46,11 @@ export default function ScrollAnimations() {
                         markers: true, // Affiche les markers pour visualiser les triggers
                         onEnter: () => {
                             console.log(`Enter section: ${sectionId}`);
+                            
+                            // Fonction déclenchée uniquement sur mobile
+                            if (isMobile()) {
+                                console.log(`📱 Mobile: Enter section ${sectionId}`);
+                            }
                             
                             sections.forEach((s) => s.classList.remove("active"));
                             section.classList.add("active");
@@ -87,7 +97,7 @@ export default function ScrollAnimations() {
 
 
         /* ----------------------------- HEADER HOVER LOGIC ----------------------------- */
-        const nav = document.querySelector("header nav"); ``
+        const nav = document.querySelector("header nav");
         const navLinks = document.querySelectorAll("header nav ul li a");
 
         nav.addEventListener("mouseenter", () => {

@@ -80,9 +80,13 @@ section:not(section:last-child) {
 /* ScrollSpy Animations */
 /* -------------------------------------------------------------------- */
 
-header nav a.active {
-  @apply underline decoration-1 underline-offset-[3px];
+section.active,
+section.active a,
+section.active li {
+  @apply max-md:!opacity-100;
 }
+
+
 
 
 img {

@@ -16,7 +16,7 @@ export default function AccordionExhibition({
 
   return (
     <li
-      className="transition-opacity duration-300 opacity-10 hover:opacity-100"
+      className="transition-opacity duration-300 opacity-10 md:hover:opacity-100"
       key={item.id}
     >
       {/* --- EXHIBITION LIST --- */}
