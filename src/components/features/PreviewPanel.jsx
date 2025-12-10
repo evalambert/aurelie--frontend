@@ -58,8 +58,8 @@ export default function PreviewPanel({ slidersLandscape }) {
       {/* Zone PREVIEW IMAGE */}
       <div
         className={
-          "preview-panel-exhibition z-80 transition-opacity duration-300 absolute md:fixed md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] md:pt-y-body " +
-          (preview.hoverImage ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")
+          "preview-panel-exhibition z-80 transition-opacity duration-300 fixed border border-amber-600 md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] md:pt-y-body " +
+          (preview.hoverImage ? "opacity-100 pointer-events-auto" : "md:opacity-0 pointer-events-none")
         }
       >
         {preview.images.map((img) => (

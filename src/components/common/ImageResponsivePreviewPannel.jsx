@@ -10,7 +10,7 @@ export default function ImageResponsivePreviewPannel({ img, isVisible }) {
   return (
     <img
       src={url}
-      className={`max-w-full max-h-full object-contain absolute top-y-body left-0 
+      className={`max-w-full max-h-full object-contain absolute top-0 md:top-y-body left-0 
         transition-opacity duration-300 
         ${isVisible ? "opacity-100" : "opacity-0"}`}
     />
