@@ -63,6 +63,10 @@ export default function AccordionExhibition({
             animate={{ height: "auto" }}
             exit={{ height: 0 }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
+            onAnimationComplete={() => {
+              console.log("Animation complete");
+              ScrollTrigger.refresh();
+            }}
             className="overflow-hidden"
           >
             {/* --- EXHIBITION WRAPPER-CONTENTS --- */}
