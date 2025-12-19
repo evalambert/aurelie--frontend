@@ -3,6 +3,7 @@ import ImagesExhibition from "./ImagesExhibition.jsx";
 import { previewStore } from "../../../stores/previewStore.js";
 import AtlasList from "./AtlasList.jsx";
 
+
 export default function AccordionExhibition({
   item,
   lang,
