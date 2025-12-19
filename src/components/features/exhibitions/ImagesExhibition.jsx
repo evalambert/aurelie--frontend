@@ -27,7 +27,7 @@ export default function ImagesExhibition({ item }) {
               trigger: imgEl,
               start: "top 40px",
               end: "bottom 40px",
-              markers: true,
+              // markers: true,
               onEnter: () => previewStore.setHoverImage(previewUrl),
               onEnterBack: () => previewStore.setHoverImage(previewUrl),
               onLeave: () => previewStore.clearHover(),
