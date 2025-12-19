@@ -1,6 +1,6 @@
 // src/layouts/Exhibitions.jsx
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AccordionExhibition from "../components/features/exhibitions/AccordionExhibition.jsx";
 
@@ -15,6 +15,17 @@ export default function Exhibitions({ data, lang }) {
       setOpen([...open, id]);
     }
   };
+
+  // Déclencher l'événement après les changements d'état des accordéons
+  // Cela garantit que ScrollTrigger est rafraîchi même si onAnimationComplete ne se déclenche pas
+  useEffect(() => {
+    // Attendre que l'animation soit terminée (350ms + un peu de marge)
+    const timer = setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("accordionAnimationComplete"));
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [open]);
 
   return (
     <div className="exhibition--wrapper">

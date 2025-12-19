@@ -1,33 +1,13 @@
 // SliderLandscape.jsx
 import { useState, useRef, useEffect } from "react";
-import { getResponsiveImageUrl } from "../../../assets/scripts/libs/getImageUrl";
+import { useResponsiveImage } from "../../../hooks/useResponsiveImage";
 
 const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   const [hovered, setHovered] = useState(false);
-  const [coverUrl, setCoverUrl] = useState(null);
-  const [backgroundUrl, setBackgroundUrl] = useState(null);
+  const coverUrl = useResponsiveImage(slider.cover, "cover"); // ← OK
+  const backgroundUrl = useResponsiveImage(slider.background, "lightbox");
+
   const rootRef = useRef(null);
-
-  useEffect(() => {
-    const updateImages = () => {
-      const width = window.innerWidth;
-
-      const cover = getResponsiveImageUrl(slider.cover, "lightbox", width);
-      const background = getResponsiveImageUrl(
-        slider.background,
-        "lightbox",
-        width
-      );
-
-      setCoverUrl(cover);
-      setBackgroundUrl(background);
-    };
-
-    updateImages();
-    window.addEventListener("resize", updateImages);
-
-    return () => window.removeEventListener("resize", updateImages);
-  }, [slider.cover, slider.background]);
 
   const isLandscape = slider.cover?.width > slider.cover?.height;
   const isScrolling = useRef(false);
@@ -146,7 +126,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
           draggable="false"
           className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${
             isLandscape
-              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-var(--spacing-x-body))] lg:max-w-[calc(58vw-var(--spacing-x-body))]"
+              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
               : "max-w-[80vw] pl-[10px]"
           }`}
           alt=""

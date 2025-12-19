@@ -8,7 +8,11 @@ export const getResponsiveImageUrl = (image, context, width) => {
       if (width >= 768) return image.formats.medium?.url || image.url
       return image.formats.small?.url || image.url
     case 'lightbox':
-      if (width >= 768) return image.formats.xlarge?.url || image.url
+      if (width >= 1024) return image.formats.xlarge?.url || image.url
+      if (width >= 768) return image.formats.large?.url || image.url
+      return image.formats.large?.url || image.url
+    case 'cover':
+      if (width >= 1800) return image.formats.xlarge?.url || image.url
       return image.formats.medium?.url || image.url
     default:
       return image.url

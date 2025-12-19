@@ -13,7 +13,7 @@ export default function AccordionExhibition({
 }) {
   return (
     <li
-      className="transition-opacity duration-300 opacity-10 md:hover:opacity-100"
+      className="transition-opacity duration-300 opacity-10 hover:opacity-100"
       key={item.id}
     >
       {/* --- EXHIBITION LIST --- */}
@@ -63,11 +63,6 @@ export default function AccordionExhibition({
             animate={{ height: "auto" }}
             exit={{ height: 0 }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
-            onAnimationComplete={() => {
-              console.log("Animation complete");
-              // Déclencher un événement personnalisé pour notifier ScrollAnimations
-              window.dispatchEvent(new CustomEvent("accordionAnimationComplete"));
-            }}
             className="overflow-hidden"
           >
             {/* --- EXHIBITION WRAPPER-CONTENTS --- */}

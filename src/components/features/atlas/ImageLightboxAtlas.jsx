@@ -1,40 +1,18 @@
-import { useState, useEffect } from "react";
-import { getResponsiveImageUrl } from "../../../assets/scripts/libs/getImageUrl";
+import { useState } from "react";
+import { useResponsiveImage } from "../../../hooks/useResponsiveImage";
 
 const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
   const [loaded, setLoaded] = useState(false);
-  const [imageUrl, setImageUrl] = useState(null);
+  const imageUrl = useResponsiveImage(imageData, "lightbox");
 
-  useEffect(() => {
-    const updateImage = () => {
-      if (toggleOpen && imageData) {
-        const width = window.innerWidth;
-        const url = getResponsiveImageUrl(imageData, "lightbox", width);
-        setImageUrl(url);
-        setLoaded(false);
-      } else {
-        setImageUrl(null);
-        setLoaded(false);
-      }
-    };
-
-    updateImage();
-    window.addEventListener("resize", updateImage);
-    return () => window.removeEventListener("resize", updateImage);
-  }, [toggleOpen, imageData]);
-
-  if (!imageUrl) return null;
+  if (!toggleOpen || !imageUrl) return null;
 
   return (
-    <div
-      className={`fixed m-auto top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-90 w-fit h-fit ${
-        toggleOpen ? "block" : "hidden"
-      }`}
-    >
+    <div className="fixed m-auto top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-90 w-fit h-fit">
       <img
         src={imageUrl}
         alt="Image Lightbox"
-        className={`m-auto block max-h-screen max-w-screen transition-opacity duration-300 z-90 ${
+        className={`m-auto block max-h-screen max-w-screen transition-opacity duration-300 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         onLoad={() => setLoaded(true)}

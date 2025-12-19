@@ -6,7 +6,8 @@ import About from "../../layouts/About.astro";
 import Atlas from "../../layouts/Atlas.jsx";
 import Exhibitions from "../../layouts/Exhibitions.jsx";
 import PreviewPanel from "../../components/features/PreviewPanel.jsx";
-import ScrollSpy from "../../components/common/ScrollSpy.jsx";
+import ScrollAnimations from "../../components/features/ScrollAnimations.jsx";
+
 
 const { lang } = Astro.params;
 
@@ -19,12 +20,14 @@ const about = await fetchApi({
   wrappedByKey: "data",
 });
 
+
 const exhibitions = await fetchApi({
   endpoint: "exhibitions",
   query: {
-    populate: "*",
+    "populate[atlasRelation][populate]": "*",
+    "populate[exhibitionView][populate]": "*",
   },
-  locale: lang,
+  locale: lang, 
   wrappedByKey: "data",
 });
 
@@ -45,15 +48,15 @@ const sliderLandscape = await fetchApi({
 ---
 
 <Layout>
-  <ScrollSpy client:load />
+  
   <div>
-    <section id="landscape" class=" h-[100svh] relative md:absolute scroll-mt-header-height opacity-100 transition duration-800">
+    <div id="landscape" class=" h-[100svh] relative md:absolute scroll-mt-header-height opacity-100 transition duration-800">
       <PreviewPanel slidersLandscape={sliderLandscape} client:load />
-    </section>
+    </div>
 
     <section
       id="about"
-      class="px-x-body md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 md:opacity-10 hover:opacity-100 scroll-mt-header-height pt-header-height"
+      class="px-x-body md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 md:opacity-10 md:hover:opacity-100 scroll-mt-header-height pt-header-height"
     >
       <div class="md:col-span-10 lg:col-span-8">
         <About data={about} lang={lang} />
@@ -75,4 +78,5 @@ const sliderLandscape = await fetchApi({
       <Atlas client:load={true} atlases={atlases} />
     </section>
   </div>
+  <ScrollAnimations client:load />
 </Layout>
