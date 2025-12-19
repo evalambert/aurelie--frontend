@@ -65,7 +65,8 @@ export default function AccordionExhibition({
             transition={{ duration: 0.35, ease: "easeInOut" }}
             onAnimationComplete={() => {
               console.log("Animation complete");
-              ScrollTrigger.refresh();
+              // Déclencher un événement personnalisé pour notifier ScrollAnimations
+              window.dispatchEvent(new CustomEvent("accordionAnimationComplete"));
             }}
             className="overflow-hidden"
           >
