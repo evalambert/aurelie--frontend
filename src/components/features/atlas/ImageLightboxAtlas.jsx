@@ -16,7 +16,7 @@ const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
   return (
     <div 
       className={`fixed top-0 left-0 w-full h-full z-90 flex items-center justify-center cursor-pointer transition-opacity duration-300 ${
-        toggleOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        toggleOpen && imageUrl && loaded ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       }`} 
       onClick={closeLightbox}
     >
