@@ -43,7 +43,13 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
 
     const onTouchMove = (ev) => {
       console.log("native touchmove");
+      setHovered(false);
       isScrolling.current = true; // l’utilisateur scroll
+      // Scroll vers la section about
+      const aboutSection = document.querySelector("#about");
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     };
 
     const onTouchEnd = (ev) => {
@@ -99,36 +105,34 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
         ref={rootRef}
         // ajout de touch-action none inline pour forcer Safari à envoyer les events
         style={{ WebkitTapHighlightColor: "transparent" }}
-        className={`slider-landscape absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] ${opacityClass} ${
-          hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"
-        }`}
+        className={`slider-landscape absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] ${opacityClass} ${hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"
+          }`}
         // on conserve tes handlers react au cas où
         {...(!isMobile
           ? {
-              onMouseEnter: () => setHovered(true),
-              onMouseLeave: () => {
-                setHovered(false);
-                if (onMouseLeave) onMouseLeave();
-              },
-            }
+            onMouseEnter: () => setHovered(true),
+            onMouseLeave: () => {
+              setHovered(false);
+              if (onMouseLeave) onMouseLeave();
+            },
+          }
           : {
-              onTouchStart: handlePressStart,
-              onTouchEnd: handlePressEnd,
-              // onTouchMove: () => {}, // plus nécessaire ici car on a natif
-              onTouchCancel: () => {
-                setHovered(false);
-              },
-              // onPointerDown & up natifs aussi ajoutés via useEffect
-            })}
+            onTouchStart: handlePressStart,
+            onTouchEnd: handlePressEnd,
+            // onTouchMove: () => {}, // plus nécessaire ici car on a natif
+            onTouchCancel: () => {
+              setHovered(false);
+            },
+            // onPointerDown & up natifs aussi ajoutés via useEffect
+          })}
       >
         <img
           src={coverUrl}
           draggable="false"
-          className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${
-            isLandscape
+          className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
               ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
               : "max-w-[80vw] pl-[10px]"
-          }`}
+            }`}
           alt=""
           loading="lazy"
         />
@@ -136,9 +140,8 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
 
       {backgroundUrl && (
         <div
-          className={`background-landscape fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${
-            hovered ? "opacity-100 z-70" : "opacity-0"
-          }`}
+          className={`background-landscape fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${hovered ? "opacity-100 z-70" : "opacity-0"
+            }`}
         >
           <img
             src={backgroundUrl}

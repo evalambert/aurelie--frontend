@@ -1,16 +1,41 @@
 import { useState } from "react";
 import { useResponsiveImage } from "../../../hooks/useResponsiveImage";
+import { useIsDesktop } from "../../../hooks/isDesktop";
+import { getResponsiveImageUrl } from "../../../assets/scripts/libs/getImageUrl";
 
 const AtlasCard = ({ id, atlas, onCardClick }) => {
   const [loaded, setLoaded] = useState(false);
   const imageUrl = useResponsiveImage(atlas.Image, "card");
+  const isDesktop = useIsDesktop(1024);
+
+  const getClickImage = () => {
+    if (!atlas.Image) return atlas.Image;
+    const width = window.innerWidth;
+    let imageUrl;
+    
+    if (isDesktop) {
+      // Version lightbox en desktop (comme useResponsiveImage(slider.background, "lightbox"))
+      imageUrl = getResponsiveImageUrl(atlas.Image, "lightbox", width);
+    } else {
+      // Version medium en mobile
+      imageUrl = atlas.Image.formats?.medium?.url || atlas.Image.url;
+    }
+    
+    // Retourner un objet image avec l'URL mise à jour et sans formats
+    // pour que ImageLightboxAtlas utilise directement cette URL
+    return {
+      ...atlas.Image,
+      url: imageUrl,
+      formats: undefined // Supprimer formats pour forcer l'utilisation de l'URL
+    };
+  };
 
   return (
     <div
       id={`atlas-${id}`}
       className="transition-opacity duration-500 cursor-pointer"
       style={{ opacity: loaded ? 1 : 0 }}
-      onClick={() => onCardClick(atlas.Image)}
+      onClick={() => onCardClick(getClickImage())}
     >
       {imageUrl ? (
         <div className="mb-[10px]">
