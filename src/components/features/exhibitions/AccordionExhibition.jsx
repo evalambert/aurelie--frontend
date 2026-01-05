@@ -1,4 +1,5 @@
 //components/features/exhibitions/AccordionExhibition.jsx
+import { useState, useEffect } from "react";
 import ImagesExhibition from "./ImagesExhibition.jsx";
 import { previewStore } from "../../../stores/previewStore.js";
 import AtlasList from "./AtlasList.jsx";
@@ -11,9 +12,19 @@ export default function AccordionExhibition({
   motion,
   AnimatePresence,
 }) {
+
+  const [mobileClicked, setMobileClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // état pour mobile
+
+
+  useEffect(() => {
+    // Ce code ne s'exécute que côté client
+    setIsMobile('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+  
   return (
     <li
-      className="transition-opacity duration-300 opacity-10 md:hover:opacity-100"
+      className={`transition-opacity duration-300 opacity-10 md:hover:opacity-100 ${mobileClicked ? "opacity-100" : "opacity-10"}`}
       key={item.id}
     >
       {/* --- EXHIBITION LIST --- */}
@@ -42,6 +53,11 @@ export default function AccordionExhibition({
 
           // Toggle l'accordion
           toggle(item.id);
+          if (isMobile && !mobileClicked) {
+            setMobileClicked(true);
+          }else{
+            setMobileClicked(false);
+          }
         }}
         className="exhibition--item w-full grid grid-cols-[1fr_100px] md:grid-cols-10 text-left"
       >

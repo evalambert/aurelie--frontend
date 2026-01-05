@@ -122,14 +122,14 @@ export default function ScrollAnimations() {
                         ScrollTrigger.create({
                             id: "landscape-mobile-scroll",
                             trigger: "#landscape",
-                            start: "10px top",
+                            start: "40px top",
                             end: "bottom top",
-                            // markers: true,
+                            //markers: true,
                             onEnter: () => {
                                 landscapeTween.play();
                                 console.log("Enter landscape");
                             },
-                            onEnterBack: () => {
+                            onLeaveBack: () => {
                                 landscapeTween.reverse();
                             },
                             onLeave: () => {
