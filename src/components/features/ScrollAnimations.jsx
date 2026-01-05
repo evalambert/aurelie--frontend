@@ -108,6 +108,85 @@ export default function ScrollAnimations() {
                 // Créer les triggers initiaux
                 createScrollTriggers();
 
+                /* ----------------------------- LANDSCAPE MOBILE SCROLL LOGIC ----------------------------- */
+                // Animation GSAP pour l'opacité du landscape sur mobile
+                const landscape = document.querySelector("#landscape");
+                if (landscape) {
+                    // Fonction pour créer/mettre à jour le ScrollTrigger du landscape
+                    const createLandscapeScrollTrigger = () => {
+                        // Nettoyer l'ancien trigger s'il existe
+                        const existingTrigger = ScrollTrigger.getById("landscape-mobile-scroll");
+                        if (existingTrigger) {
+                            existingTrigger.kill();
+                        }
+
+                        // Ne créer le trigger que sur mobile
+                        if (isMobile()) {
+                            const landscapeTween = gsap.to(landscape, {
+                                opacity: 0,
+                                duration: 0.3,
+                                ease: "power2.out",
+                                paused: true
+                            });
+
+                            ScrollTrigger.create({
+                                id: "landscape-mobile-scroll",
+                                trigger: "body",
+                                start: "top top",
+                                end: "max",
+                                onUpdate: (self) => {
+                                    if (isMobile()) {
+                                        const scrollTop = self.scroll();
+                                        if (scrollTop > 10) {
+                                            landscapeTween.play();
+                                        } else {
+                                            landscapeTween.reverse();
+                                        }
+                                    } else {
+                                        // Si on n'est plus sur mobile, réinitialiser l'opacité
+                                        landscapeTween.reverse();
+                                        self.disable();
+                                    }
+                                },
+                                onEnter: () => {
+                                    if (isMobile()) {
+                                        landscapeTween.play();
+                                    }
+                                },
+                                onLeaveBack: () => {
+                                    if (isMobile()) {
+                                        landscapeTween.reverse();
+                                    }
+                                }
+                            });
+
+                            // Vérifier l'état initial
+                            if (window.pageYOffset > 10) {
+                                landscapeTween.progress(1);
+                            }
+                        }
+                    };
+
+                    // Créer le trigger initial
+                    createLandscapeScrollTrigger();
+
+                    // Réécouter le redimensionnement pour recréer le trigger si nécessaire
+                    const handleResize = () => {
+                        createLandscapeScrollTrigger();
+                        ScrollTrigger.refresh();
+                    };
+
+                    window.addEventListener("resize", handleResize);
+
+                    cleanupFunctions.push(() => {
+                        window.removeEventListener("resize", handleResize);
+                        const existingTrigger = ScrollTrigger.getById("landscape-mobile-scroll");
+                        if (existingTrigger) {
+                            existingTrigger.kill();
+                        }
+                    });
+                }
+
                 // Écouter les événements de changement d'accordéon pour rafraîchir les triggers
                 const handleAccordionChange = () => {
                     // Attendre un peu pour que le DOM soit mis à jour après l'animation
