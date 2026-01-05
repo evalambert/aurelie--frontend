@@ -83,14 +83,12 @@ export default function ImageExhibitionItem({ img }) {
 
   const handlePressStart = (e) => {
     console.log("handler start (react)", e.type);
-    // Fonction PRESSSTART
+    setHovered(true);
   };
 
   const handlePressEnd = (e) => {
     console.log("handler end (react)", e?.type);
-    // e.preventDefault(); // si besoin mais ici on utilise native avec passive:false
-    // Fonction LEAVE
-    // setHovered(false);
+    setHovered(false);
   };
 
   return (
@@ -114,19 +112,15 @@ export default function ImageExhibitionItem({ img }) {
         onPointerLeave={isDesktop ? () => previewStore.clearHover() : undefined}
         {...(!isDesktop
           ? {
-            onMouseEnter: () => setHovered(true),
-            onMouseLeave: () => {
-              setHovered(false);
-            },
-          }
-          : {
             onTouchStart: handlePressStart,
             onTouchEnd: handlePressEnd,
-            // onTouchMove: () => {}, // plus nécessaire ici car on a natif
             onTouchCancel: () => {
               setHovered(false);
             },
             // onPointerDown & up natifs aussi ajoutés via useEffect
+          }
+          : {
+            // Desktop handlers
           })}
       />
     </div>
