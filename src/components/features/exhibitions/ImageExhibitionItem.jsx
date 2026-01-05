@@ -105,8 +105,8 @@ export default function ImageExhibitionItem({ img }) {
         data-preview={previewUrl} // 🔥 nécessaire pour GSAP mobile
         className={
           "exhibition-image filter grayscale opacity-50 w-full h-auto pb-[10px] " +
-          (isLandscape ? "md:w-[70%]" : "md:w-[50%]") +
-          (hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100")
+          (isLandscape ? "md:w-[70%] " : "md:w-[50%] ") +
+          (hovered ? " z-80 !opacity-100 grayscale-0" : " grayscale-100")
         }
         onPointerEnter={
           isDesktop ? () => previewStore.setHoverImage(previewUrl) : undefined

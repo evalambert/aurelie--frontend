@@ -13,7 +13,7 @@ export const getResponsiveImageUrl = (image, context, width) => {
       return image.formats.large?.url || image.url
     case 'cover':
       if (width >= 1800) return image.formats.xlarge?.url || image.url
-      return image.formats.medium?.url || image.url
+      return image.formats.large?.url || image.url
     default:
       return image.url
   }
