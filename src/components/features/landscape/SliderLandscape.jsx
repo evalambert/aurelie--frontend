@@ -45,11 +45,6 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
       console.log("native touchmove");
       setHovered(false);
       isScrolling.current = true; // l’utilisateur scroll
-      // Scroll vers la section about
-      const aboutSection = document.querySelector("#about");
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
     };
 
     const onTouchEnd = (ev) => {
