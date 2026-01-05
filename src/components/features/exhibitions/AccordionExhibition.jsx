@@ -38,7 +38,7 @@ export default function AccordionExhibition({
           const atlasImages =
             item.atlasRelation
               ?.map((work) => {
-                const url = work.Image?.formats?.large?.url || work.Image?.url;
+                const url = work.image?.formats?.large?.url || work.image?.url;
                 if (!url) return null;
                 return {
                   id: work.id, // identifiant unique
