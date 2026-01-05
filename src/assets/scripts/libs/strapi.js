@@ -21,7 +21,7 @@ export default async function fetchApi ({
     endpoint = endpoint.slice(1)
   }
 
-  const API_URL = 'https://railwayapp-strapi-production-6028.up.railway.app'
+  const API_URL = 'https://railwayapp-strapi-production-5cc7.up.railway.app'
   const url = new URL(`${API_URL}/api/${endpoint}`)
 
   if (query) {

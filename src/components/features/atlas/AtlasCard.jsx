@@ -5,26 +5,26 @@ import { getResponsiveImageUrl } from "../../../assets/scripts/libs/getImageUrl"
 
 const AtlasCard = ({ id, atlas, onCardClick }) => {
   const [loaded, setLoaded] = useState(false);
-  const imageUrl = useResponsiveImage(atlas.Image, "card");
+  const imageUrl = useResponsiveImage(atlas.image, "card");
   const isDesktop = useIsDesktop(1024);
 
   const getClickImage = () => {
-    if (!atlas.Image) return atlas.Image;
+    if (!atlas.image) return atlas.image;
     const width = window.innerWidth;
     let imageUrl;
     
     if (isDesktop) {
       // Version lightbox en desktop (comme useResponsiveImage(slider.background, "lightbox"))
-      imageUrl = getResponsiveImageUrl(atlas.Image, "lightbox", width);
+      imageUrl = getResponsiveImageUrl(atlas.image, "lightbox", width);
     } else {
       // Version medium en mobile
-      imageUrl = atlas.Image.formats?.medium?.url || atlas.Image.url;
+      imageUrl = atlas.image.formats?.medium?.url || atlas.image.url;
     }
     
     // Retourner un objet image avec l'URL mise à jour et sans formats
     // pour que ImageLightboxAtlas utilise directement cette URL
     return {
-      ...atlas.Image,
+      ...atlas.image,
       url: imageUrl,
       formats: undefined // Supprimer formats pour forcer l'utilisation de l'URL
     };

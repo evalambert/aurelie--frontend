@@ -3,8 +3,8 @@ import { previewStore } from "../../../stores/previewStore";
 
 
 export default function AtlasListItem({ work }) {
-    if (!work.Image) return null;
-    const url = work.Image.formats?.large?.url || work.Image.url;
+    if (!work.image) return null;
+    const url = work.image.formats?.large?.url || work.image.url;
     const fields = [work.title, work.technique, work.origin, work.year].filter(Boolean);
     return (
 

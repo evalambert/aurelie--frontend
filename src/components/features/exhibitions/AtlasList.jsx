@@ -12,8 +12,8 @@ export default function AtlasList({ item, lang }) {
       )}
       <div>
         {item.atlasRelation?.map((work) => {
-          if (!work.Image) return null;
-          const url = work.Image.formats?.large?.url || work.Image.url;
+          if (!work.image) return null;
+          const url = work.image.formats?.large?.url || work.image.url;
           const fields = [work.title, work.technique, work.origin, work.year].filter(Boolean);
 
           return (
