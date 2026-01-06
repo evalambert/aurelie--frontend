@@ -33,15 +33,27 @@ export default function AccordionExhibition({
           // Récupère les images de l'expo
           const expoImages = item.exhibitionView || [];
 
-          // Récupère les images des œuvres de l'Atlas
-          // Récupère les images des œuvres de l'Atlas sous forme d'objets standardisés
+          // Récupère les images/vidéos courtes des œuvres de l'Atlas sous forme d'objets standardisés
           const atlasImages =
             item.atlasRelation
               ?.map((work) => {
-                const url = work.image?.formats?.large?.url || work.image?.url;
+                // Si une shortVideo existe, on priorise la vidéo pour la preview
+                if (work.shortVideo?.url) {
+                  return {
+                    id: work.id,
+                    type: 'video',
+                    url: work.shortVideo.previewUrl || work.shortVideo.url, // URL pour le hover (previewUrl si disponible)
+                    videoUrl: work.shortVideo.url, // URL de la vidéo complète
+                  };
+                }
+                // Sinon, on utilise l'image
+                const url =
+                  work.image?.formats?.large?.url ||
+                  work.image?.url;
                 if (!url) return null;
                 return {
-                  id: work.id, // identifiant unique
+                  id: work.id,
+                  type: 'image',
                   url, // URL de l'image
                 };
               })
