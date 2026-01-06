@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import SliderLandscape from "./landscape/SliderLandscape.jsx";
 import ImageResponsivePreviewPannel from "../common/ImageResponsivePreviewPannel.jsx";
+import VideoResponsivePreviewPannel from "../common/VideoResponsivePreviewPannel.jsx";
 
 export default function PreviewPanel({ slidersLandscape }) {
 
@@ -55,22 +56,37 @@ export default function PreviewPanel({ slidersLandscape }) {
   return (
     <>
 
-      {/* Zone PREVIEW IMAGE */}
+      {/* Zone PREVIEW IMAGE/VIDEO */}
       <div
         className={
           "preview-panel-exhibition z-80 transition-opacity duration-300 fixed md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] md:pt-y-body " +
           (preview.hoverImage ? "opacity-100 pointer-events-auto" : "md:opacity-0 pointer-events-none")
         }
       >
-        {preview.images.map((img) => (
-          <ImageResponsivePreviewPannel
-            key={img.id}
-            img={img}
-            isVisible={
-              (img.formats?.large?.url || img.url) === preview.hoverImage
-            }
-          />
-        ))}
+        {preview.images.map((media) => {
+          const isVisible =
+            (media.formats?.large?.url || media.url) === preview.hoverImage;
+          
+          // Si c'est une vidéo, utiliser VideoResponsivePreviewPannel
+          if (media.type === 'video') {
+            return (
+              <VideoResponsivePreviewPannel
+                key={media.id}
+                video={{ url: media.videoUrl }}
+                isVisible={isVisible}
+              />
+            );
+          }
+          
+          // Sinon, utiliser ImageResponsivePreviewPannel
+          return (
+            <ImageResponsivePreviewPannel
+              key={media.id}
+              img={media}
+              isVisible={isVisible}
+            />
+          );
+        })}
       </div>
       <div
         className={

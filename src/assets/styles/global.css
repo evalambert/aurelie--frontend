@@ -101,3 +101,7 @@ img {
   will-change: transform;
 
 }
+
+iframe{
+  @apply w-full h-full;
+}

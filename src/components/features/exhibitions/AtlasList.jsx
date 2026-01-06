@@ -12,8 +12,14 @@ export default function AtlasList({ item, lang }) {
       )}
       <div>
         {item.atlasRelation?.map((work) => {
-          if (!work.image) return null;
-          const url = work.image.formats?.large?.url || work.image.url;
+          // On priorise la shortVideo pour le hover (previewUrl si disponible, sinon url de la vidéo)
+          // Sinon on utilise l'image
+          const url =
+            work.shortVideo?.previewUrl ||
+            work.shortVideo?.url ||
+            work.image?.formats?.large?.url ||
+            work.image?.url;
+          if (!url) return null;
           const fields = [work.title, work.technique, work.origin, work.year].filter(Boolean);
 
           return (

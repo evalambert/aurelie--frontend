@@ -8,8 +8,9 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
   const imageUrl = useResponsiveImage(atlas.image, "card");
   const isDesktop = useIsDesktop(1024);
 
-  const getClickImage = () => {
-    if (!atlas.image) return atlas.image;
+  const getClickData = () => {
+    if (!atlas.image) return atlas;
+    
     const width = window.innerWidth;
     let imageUrl;
     
@@ -21,12 +22,15 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
       imageUrl = atlas.image.formats?.medium?.url || atlas.image.url;
     }
     
-    // Retourner un objet image avec l'URL mise à jour et sans formats
-    // pour que ImageLightboxAtlas utilise directement cette URL
+    // Retourner l'objet atlas complet avec l'image traitée pour mobile/desktop
+    // pour que ImageLightboxAtlas puisse utiliser l'URL et accéder à oembedVideo
     return {
-      ...atlas.image,
-      url: imageUrl,
-      formats: undefined // Supprimer formats pour forcer l'utilisation de l'URL
+      ...atlas,
+      image: {
+        ...atlas.image,
+        url: imageUrl,
+        formats: undefined // Supprimer formats pour forcer l'utilisation de l'URL
+      }
     };
   };
 
@@ -35,7 +39,7 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
       id={`atlas-${id}`}
       className="transition-opacity duration-500 cursor-pointer"
       style={{ opacity: loaded ? 1 : 0 }}
-      onClick={() => onCardClick(getClickImage())}
+      onClick={() => onCardClick(getClickData())}
     >
       {imageUrl ? (
         <div className="mb-[10px]">

@@ -4,10 +4,14 @@ import { useResponsiveImage } from "../../../hooks/useResponsiveImage";
 
 const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   const [hovered, setHovered] = useState(false);
-  const coverUrl = useResponsiveImage(slider.cover, "cover"); // ← OK
+  const coverUrl = useResponsiveImage(slider.cover, "cover"); // image ou vidéo
   const backgroundUrl = useResponsiveImage(slider.background, "lightbox");
 
+  const isCoverVideo = slider.cover?.mime?.startsWith("video/");
+  const isBackgroundVideo = slider.background?.mime?.startsWith("video/");
+
   const rootRef = useRef(null);
+  const coverVideoRef = useRef(null);
 
   const isLandscape = slider.cover?.width > slider.cover?.height;
   const isScrolling = useRef(false);
@@ -18,16 +22,30 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
     hidden: "opacity-0 pointer-events-none",
   }[mode];
 
+  const playCoverVideo = () => {
+    if (isCoverVideo && coverVideoRef.current) {
+      coverVideoRef.current.play().catch(() => { });
+    }
+  };
+
+  const pauseCoverVideo = () => {
+    if (isCoverVideo && coverVideoRef.current) {
+      coverVideoRef.current.pause();
+    }
+  };
+
   const handlePressStart = (e) => {
     // console.log pour debugging
     console.log("handler start (react)", e.type);
     setHovered(true);
+    playCoverVideo();
   };
 
   const handlePressEnd = (e) => {
     console.log("handler end (react)", e?.type);
     // e.preventDefault(); // si besoin mais ici on utilise native avec passive:false
     setHovered(false);
+    pauseCoverVideo();
     if (onMouseLeave) onMouseLeave();
   };
 
@@ -39,12 +57,14 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
       isScrolling.current = false;
       setHovered(true);
       console.log("native touchstart");
+      playCoverVideo();
     };
 
     const onTouchMove = (ev) => {
       console.log("native touchmove");
       setHovered(false);
       isScrolling.current = true; // l’utilisateur scroll
+      pauseCoverVideo();
     };
 
     const onTouchEnd = (ev) => {
@@ -53,24 +73,29 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
       if (!isScrolling.current) {
         // ➤ Super court : c’était un TAP → on change de slide
         setHovered(false);
+        pauseCoverVideo();
         if (onMouseLeave) onMouseLeave();
       } else {
         // ➤ C’était un scroll → on ne déclenche rien
         setHovered(false);
+        pauseCoverVideo();
       }
     };
     const onTouchCancel = (ev) => {
       console.log("native touchcancel", ev.type);
       setHovered(false);
+      pauseCoverVideo();
     };
 
     const onPointerDown = (ev) => {
       console.log("native pointerdown", ev.type);
       setHovered(true);
+      playCoverVideo();
     };
     const onPointerUp = (ev) => {
       console.log("native pointerup", ev.type);
       setHovered(false);
+      pauseCoverVideo();
       if (onMouseLeave) onMouseLeave();
     };
 
@@ -92,7 +117,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
       el.removeEventListener("pointerdown", onPointerDown);
       el.removeEventListener("pointerup", onPointerUp);
     };
-  }, [onMouseLeave]);
+  }, [onMouseLeave, isCoverVideo]);
 
   return (
     <>
@@ -105,9 +130,13 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
         // on conserve tes handlers react au cas où
         {...(!isMobile
           ? {
-            onMouseEnter: () => setHovered(true),
+            onMouseEnter: () => {
+              setHovered(true);
+              playCoverVideo();
+            },
             onMouseLeave: () => {
               setHovered(false);
+              pauseCoverVideo();
               if (onMouseLeave) onMouseLeave();
             },
           }
@@ -117,34 +146,60 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
             // onTouchMove: () => {}, // plus nécessaire ici car on a natif
             onTouchCancel: () => {
               setHovered(false);
+              pauseCoverVideo();
             },
             // onPointerDown & up natifs aussi ajoutés via useEffect
           })}
       >
-        <img
-          src={coverUrl}
-          draggable="false"
-          className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
-              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
-              : "max-w-[80vw] pl-[10px]"
-            }`}
-          alt=""
-          loading="lazy"
-        />
+        {isCoverVideo ? (
+          <video
+            ref={coverVideoRef}
+            src={coverUrl || slider.cover?.url}
+            className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
+                ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
+                : "max-w-[80vw] pl-[10px]"
+              }`}
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <img
+            src={coverUrl}
+            draggable="false"
+            className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
+                ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
+                : "max-w-[80vw] pl-[10px]"
+              }`}
+            alt=""
+            loading="lazy"
+          />
+        )}
       </div>
 
-      {backgroundUrl && (
+      {(backgroundUrl || slider.background) && (
         <div
           className={`background-landscape fixed top-0 right-0 w-screen h-screen pointer-events-none z-10 ${hovered ? "opacity-100 z-70" : "opacity-0"
             }`}
         >
-          <img
-            src={backgroundUrl}
-            alt=""
-            className="w-screen h-screen object-cover"
-            loading="lazy"
-            draggable="false"
-          />
+          {isBackgroundVideo ? (
+            <video
+              src={backgroundUrl || slider.background?.url}
+              className="w-screen h-screen object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <img
+              src={backgroundUrl}
+              alt=""
+              className="w-screen h-screen object-cover"
+              loading="lazy"
+              draggable="false"
+            />
+          )}
         </div>
       )}
     </>
