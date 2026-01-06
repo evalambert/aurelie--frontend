@@ -6,9 +6,12 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   const [hovered, setHovered] = useState(false);
   const coverUrl = useResponsiveImage(slider.cover, "cover"); // image ou vidéo
   const backgroundUrl = useResponsiveImage(slider.background, "lightbox");
+  const coverVideoImage = useResponsiveImage(slider.coverVideo, "cover");
+  console.log("coverVideoImage", coverVideoImage);
 
   const isCoverVideo = slider.cover?.mime?.startsWith("video/");
   const isBackgroundVideo = slider.background?.mime?.startsWith("video/");
+  const hasCoverVideoImage = !!slider.coverVideo; // existe et n'est pas null/undefined
 
   const rootRef = useRef(null);
   const coverVideoRef = useRef(null);
@@ -151,25 +154,38 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
             // onPointerDown & up natifs aussi ajoutés via useEffect
           })}
       >
-        {isCoverVideo ? (
-          <video
-            ref={coverVideoRef}
-            src={coverUrl || slider.cover?.url}
-            className={`opacity-100 max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
-                ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
-                : "max-w-[80vw] pl-[10px]"
-              }`}
-            loop
-            muted
-            playsInline
-          />
-        ) : (
+        <div className="relative">
+
+          {/* Affiche la vidéo SI cover est une vidéo */}
+          {isCoverVideo && (
+            <div className=" max-md:p-x-body md:mt-[-17px] max-md:p-x-x-body">
+              <video
+                ref={coverVideoRef}
+                src={coverUrl || slider.cover?.url}
+                className={`opacity-100 md:pointer-events-none`}
+                loop
+                muted
+                playsInline
+              />
+            </div>
+          )}
+
+          {/* Affiche l'image coverVideo SI elle existe (peut être une image, même si cover est une vidéo) */}
+          {hasCoverVideoImage && coverVideoImage && (
+            <div className=" max-md:p-x-body absolute top-0 left-0 md:mt-[-17px] max-md:p-x-x-body">
+              <img className="image--video w-full h-full object-cover" src={coverVideoImage} alt="" />
+            </div>
+          )}
+        </div>
+
+        {/* Si ce n'est pas une vidéo, affiche l'image cover */}
+        {!isCoverVideo && (
           <img
             src={coverUrl}
             draggable="false"
             className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
-                ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
-                : "max-w-[80vw] pl-[10px]"
+              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
+              : "max-w-[80vw] pl-[10px]"
               }`}
             alt=""
             loading="lazy"
