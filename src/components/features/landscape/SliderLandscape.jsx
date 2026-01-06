@@ -155,10 +155,10 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
           })}
       >
         <div className="relative">
-
+ 
           {/* Affiche la vidéo SI cover est une vidéo */}
           {isCoverVideo && (
-            <div className=" max-md:p-x-body md:mt-[-17px] max-md:p-x-x-body">
+            <div className="max-md:pb-x-body max-md:pl-x-body md:mt-[-17px] max-w-[calc(100vw-10px)] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
               <video
                 ref={coverVideoRef}
                 src={coverUrl || slider.cover?.url}
@@ -172,8 +172,8 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
 
           {/* Affiche l'image coverVideo SI elle existe (peut être une image, même si cover est une vidéo) */}
           {hasCoverVideoImage && coverVideoImage && (
-            <div className=" max-md:p-x-body absolute top-0 left-0 md:mt-[-17px] max-md:p-x-x-body">
-              <img className="image--video w-full h-full object-cover" src={coverVideoImage} alt="" />
+            <div className="md:hidden absolute overflow-hidden top-0 max-md:left-[10px] md:mt-[-17px] max-w-[calc(100vw-20px)] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
+              <img className="image--video w-full h-full object-cover " src={coverVideoImage} alt="" />
             </div>
           )}
         </div>
