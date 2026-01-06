@@ -155,7 +155,13 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
           })}
       >
         <div className="relative">
-  
+          {/* Affiche l'image coverVideo SI elle existe (peut être une image, même si cover est une vidéo) */}
+          {hasCoverVideoImage && coverVideoImage && (
+            <div className="md:hidden absolute overflow-hidden top-0 max-md:left-[10px] md:mt-[-17px] max-w-[calc(100vw-20px)] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
+              <img className="image--video w-full h-full object-cover " src={coverVideoImage} alt="" />
+            </div>
+          )}
+          
           {/* Affiche la vidéo SI cover est une vidéo */}
           {isCoverVideo && (
             <div className="max-md:pb-x-body max-md:pl-x-body md:mt-[-17px] max-w-[calc(100vw-10px)] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
@@ -170,12 +176,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
             </div>
           )}
 
-          {/* Affiche l'image coverVideo SI elle existe (peut être une image, même si cover est une vidéo) */}
-          {hasCoverVideoImage && coverVideoImage && (
-            <div className="md:hidden absolute overflow-hidden top-0 max-md:left-[10px] md:mt-[-17px] max-w-[calc(100vw-20px)] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
-              <img className="image--video w-full h-full object-cover " src={coverVideoImage} alt="" />
-            </div>
-          )}
+
         </div>
 
         {/* Si ce n'est pas une vidéo, affiche l'image cover */}
