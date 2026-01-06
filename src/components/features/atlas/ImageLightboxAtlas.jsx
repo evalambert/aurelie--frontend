@@ -37,7 +37,7 @@ const ImageLightboxAtlas = ({ imageData, toggleOpen, closeLightbox }) => {
         onClick={closeLightbox}
       >
         <div 
-          className="m-auto max-h-[90vh] max-w-[90vw] w-full aspect-video "
+          className="m-auto max-h-[90vh] max-w-screen md:max-w-[90vw] w-full aspect-video "
           onClick={(e) => e.stopPropagation()}
           dangerouslySetInnerHTML={{ __html: videoHtml }}
         />

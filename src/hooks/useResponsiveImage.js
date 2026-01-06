@@ -6,7 +6,11 @@ export function useResponsiveImage(image, context) {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
-    if (!image) return;
+    // Vérifier que l'image existe et a au moins une propriété url ou formats
+    if (!image || (!image.url && !image.formats)) {
+      setImageUrl(null);
+      return;
+    }
 
     const updateImage = () => {
       const width = window.innerWidth;
