@@ -155,7 +155,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
           })}
       >
         <div className="relative">
-
+ 
           {/* Affiche la vidéo SI cover est une vidéo */}
           {isCoverVideo && (
             <div className="max-md:pb-x-body max-md:pl-x-body md:mt-[-17px] max-w-[calc(100vw-10px)] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
