@@ -18,7 +18,7 @@ const LangSwitcher = ({ currentLang, currentPath }) => {
       onClick={handleLanguageChange}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="shrink-0 w-[35px]"
+      className="shrink-0 w-[35px] cursor-pointer"
     >
       {isHovered ? `(${otherLang})` : `(${currentLang})`}
     </button>
