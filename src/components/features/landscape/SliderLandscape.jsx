@@ -132,7 +132,6 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
           WebkitUserSelect: "none",
           userSelect: "none",
           WebkitTouchCallout: "none",
-          touchAction: "none",
         }}
         className={`slider-landscape absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] ${opacityClass} ${hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"
           }`}

@@ -102,12 +102,12 @@ img {
 
 }
 
-/* Désactiver la sélection / callout sur le slider paysage (et tout son contenu) pour éviter l'overlay bleu au long press */
 .slider-landscape,
 .slider-landscape * {
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 iframe{
