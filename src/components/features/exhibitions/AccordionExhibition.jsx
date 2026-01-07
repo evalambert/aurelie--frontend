@@ -21,7 +21,7 @@ export default function AccordionExhibition({
     // Ce code ne s'exécute que côté client
     setIsMobile('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
-  
+
   return (
     <li
       className={`transition-opacity duration-300 opacity-10 lg:hover:opacity-100 ${mobileClicked ? "opacity-100" : "opacity-10"}`}
@@ -67,7 +67,7 @@ export default function AccordionExhibition({
           toggle(item.id);
           if (isMobile && !mobileClicked) {
             setMobileClicked(true);
-          }else{
+          } else {
             setMobileClicked(false);
           }
         }}
@@ -108,6 +108,11 @@ export default function AccordionExhibition({
                   ))}
                 </div>
                 <div className="exhibition--credits">
+                  {item.groupShow && (lang === 'fr' ? (
+                    <p>exposition collective</p>
+                  ) : (
+                    <p>group show</p>
+                  ))}
                   {item.startingDate && item.endingDate && (
                     <p>
                       {" "}
