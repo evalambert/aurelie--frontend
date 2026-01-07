@@ -6,7 +6,7 @@ export default function AtlasList({ item, lang }) {
   const isDesktop = useIsDesktop(1024);
 
   return (
-    <div className="exhibition--atlas-list flex flex-col md:gap-[10px]">
+    <div className="exhibition--atlas-list flex flex-col lg:gap-[10px]">
       {item.atlasRelation.length > 0 && (
         <h3>{lang === "fr" ? "Œuvres exposées :" : "Works exhibited :"}</h3>
       )}

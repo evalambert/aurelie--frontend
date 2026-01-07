@@ -43,7 +43,7 @@
   --spacing-header-height: 95px;
 }
 
-/* MOBILE (breakpoint md:) */
+/* MOBILE (breakpoint lg:) */
 @media (width < 48rem) {
   body {
     /* Typography •••••••••••• */
@@ -83,7 +83,7 @@ section:not(section:last-child) {
 section.active,
 section.active a,
 section.active li {
-  @apply max-md:!opacity-100;
+  @apply max-lg:!opacity-100;
 }
 
 

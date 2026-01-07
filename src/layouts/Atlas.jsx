@@ -83,10 +83,10 @@ const Atlas = ({ atlases }) => {
     <>
 
 
-      <div className="wrapper-atlas pt-[53px] md:pt-[40px] py-y-body px-x-body bg-[#E0E0E0] min-h-screen">
+      <div className="wrapper-atlas pt-[53px] lg:pt-[40px] py-y-body px-x-body bg-[#E0E0E0] min-h-screen">
 
         {/* --- Filters --- */}
-        <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] sticky top-[54px] md:top-[40px] mb-[50px]">
+        <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] sticky top-[54px] lg:top-[40px] mb-[50px]">
           {mediumsList.map((m) => (
             <FilterAtlasList
               key={m}
@@ -98,7 +98,7 @@ const Atlas = ({ atlases }) => {
         </ul>
 
         {/* --- Cards --- */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-body md:gap-[30px]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-body lg:gap-[30px]">
           {ordered.map(p => (
             <AtlasCard key={p.id} atlas={p} onCardClick={handleCardClick} />
           ))}

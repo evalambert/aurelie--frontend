@@ -44,14 +44,14 @@ export default function AccordionExhibition({
           // Toggle l'accordion
           toggle(item.id);
         }}
-        className="exhibition--item w-full grid grid-cols-[1fr_100px] md:grid-cols-10 text-left"
+        className="exhibition--item w-full grid grid-cols-[1fr_100px] lg:grid-cols-10 text-left"
       >
-        <div className="grid grid-cols-[45px_1fr] md:grid-cols-[55px_1fr] md:col-span-6">
+        <div className="grid grid-cols-[45px_1fr] lg:grid-cols-[55px_1fr] lg:col-span-6">
           <p>{item.year}</p>
           <h2>{item.title}</h2>
         </div>
 
-        <p className="md:col-span-4 text-left hidden md:inline">
+        <p className="lg:col-span-4 text-left hidden lg:inline">
           {item.structure}, {item.place}
         </p>
       </button>
@@ -67,9 +67,9 @@ export default function AccordionExhibition({
             className="overflow-hidden"
           >
             {/* --- EXHIBITION WRAPPER-CONTENTS --- */}
-            <div className="exhibition--wrapper-content  pb-[55px] flex flex-col gap-[60px] md:gap-[35px]">
+            <div className="exhibition--wrapper-content  pb-[55px] flex flex-col gap-[60px] lg:gap-[35px]">
               {/* --- EXHIBITION INFO –-- */}
-              <div className="exhibition--infos pl-[45px] md:pl-[55px] md:pt-[12px] flex flex-col gap-[30px] md:gap-[25px]">
+              <div className="exhibition--infos pl-[45px] lg:pl-[55px] lg:pt-[12px] flex flex-col gap-[30px] lg:gap-[25px]">
                 <div className="exhibition--description">
                   {item.text?.map((block, i) => (
                     <p key={i}>{block.children.map((c) => c.text).join(" ")}</p>
