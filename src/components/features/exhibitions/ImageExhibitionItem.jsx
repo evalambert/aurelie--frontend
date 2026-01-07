@@ -8,7 +8,7 @@ export default function ImageExhibitionItem({ img }) {
   const isLandscape = img.width > img.height;
   const isDesktop = useIsDesktop(1024);
 
-  const imageUrl = useResponsiveImage(img, "card");
+  const imageUrl = useResponsiveImage(img, "medium");
 
   const previewUrl = img.formats?.large?.url || img.url;
 
