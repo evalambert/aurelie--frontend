@@ -109,9 +109,9 @@ export default function AccordionExhibition({
                 </div>
                 <div className="exhibition--credits">
                   {item.groupShow && (lang === 'fr' ? (
-                    <p>exposition collective</p>
+                    <p>Exposition collective</p>
                   ) : (
-                    <p>group show</p>
+                    <p>Group show</p>
                   ))}
                   {item.startingDate && item.endingDate && (
                     <p>
