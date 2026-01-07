@@ -61,7 +61,7 @@ export default function AccordionExhibition({
 
           // Combine les deux
           const allImages = [...expoImages, ...atlasImages];
-          previewStore.setImages(allImages);
+          previewStore.addImages(allImages);
 
           // Toggle l'accordion
           toggle(item.id);

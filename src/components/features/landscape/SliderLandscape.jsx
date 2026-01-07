@@ -7,7 +7,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   const coverUrl = useResponsiveImage(slider.cover, "cover"); // image ou vidéo
   const backgroundUrl = useResponsiveImage(slider.background, "lightbox");
   const coverVideoImage = useResponsiveImage(slider.coverVideo, "cover");
-  console.log("coverVideoImage", coverVideoImage);
+  // console.log("coverVideoImage", coverVideoImage);
 
   const isCoverVideo = slider.cover?.mime?.startsWith("video/");
   const isBackgroundVideo = slider.background?.mime?.startsWith("video/");
@@ -39,13 +39,13 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
 
   const handlePressStart = (e) => {
     // console.log pour debugging
-    console.log("handler start (react)", e.type);
+    // console.log("handler start (react)", e.type);
     setHovered(true);
     playCoverVideo();
   };
 
   const handlePressEnd = (e) => {
-    console.log("handler end (react)", e?.type);
+    //console.log("handler end (react)", e?.type);
     // e.preventDefault(); // si besoin mais ici on utilise native avec passive:false
     setHovered(false);
     pauseCoverVideo();
@@ -59,19 +59,19 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
     const onTouchStart = (ev) => {
       isScrolling.current = false;
       setHovered(true);
-      console.log("native touchstart");
+      //console.log("native touchstart");
       playCoverVideo();
     };
 
     const onTouchMove = (ev) => {
-      console.log("native touchmove");
+      //console.log("native touchmove");
       setHovered(false);
       isScrolling.current = true; // l’utilisateur scroll
       pauseCoverVideo();
     };
 
     const onTouchEnd = (ev) => {
-      console.log("native touchend");
+      //console.log("native touchend");
 
       if (!isScrolling.current) {
         // ➤ Super court : c’était un TAP → on change de slide
@@ -85,18 +85,18 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
       }
     };
     const onTouchCancel = (ev) => {
-      console.log("native touchcancel", ev.type);
+      //console.log("native touchcancel", ev.type);
       setHovered(false);
       pauseCoverVideo();
     };
 
     const onPointerDown = (ev) => {
-      console.log("native pointerdown", ev.type);
+      //console.log("native pointerdown", ev.type);
       setHovered(true);
       playCoverVideo();
     };
     const onPointerUp = (ev) => {
-      console.log("native pointerup", ev.type);
+      //console.log("native pointerup", ev.type);
       setHovered(false);
       pauseCoverVideo();
       if (onMouseLeave) onMouseLeave();
