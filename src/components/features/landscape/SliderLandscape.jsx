@@ -162,7 +162,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
         <div className="relative">
           {/* Affiche l'image coverVideo SI elle existe (peut être une image, même si cover est une vidéo) */}
           {hasCoverVideoImage && coverVideoImage && (
-            <div className="lg:hidden absolute overflow-hidden top-0 max-lg:left-[10px] lg:mt-[-17px] max-w-[calc(100vw-20px)] lg:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
+            <div className={`lg:hidden absolute overflow-hidden top-0 max-lg:left-[10px] lg:mt-[-17px] max-w-[calc(100vw-20px)] lg:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)] ${hovered ? "-z-10" : "z-10"}`}>
               <img className="image--video w-full h-full object-cover " src={coverVideoImage} alt="" />
             </div>
           )}
