@@ -54,12 +54,12 @@ export default function ScrollAnimations() {
                             end: "bottom 97px",
                             //markers: true, // Affiche les markers pour visualiser les triggers
                             onEnter: () => {
-                                console.log(`Enter section: ${sectionId}`);
+                                // console.log(`Enter section: ${sectionId}`);
 
-                                // Fonction déclenchée uniquement sur mobile
-                                if (isMobile()) {
-                                    console.log(`📱 Mobile: Enter section ${sectionId}`);
-                                }
+                                // // Fonction déclenchée uniquement sur mobile
+                                // if (isMobile()) {
+                                //     console.log(`📱 Mobile: Enter section ${sectionId}`);
+                                // }
 
                                 sections.forEach((s) => s.classList.remove("active"));
                                 section.classList.add("active");
@@ -67,7 +67,7 @@ export default function ScrollAnimations() {
 
                             },
                             onEnterBack: () => {
-                                console.log(`EnterBack section: ${sectionId}`);
+                                // console.log(`EnterBack section: ${sectionId}`);
 
                                 sections.forEach((s) => s.classList.remove("active"));
                                 section.classList.add("active");
@@ -83,7 +83,7 @@ export default function ScrollAnimations() {
                             },
                             onLeave: () => {
                                 if (sectionId == "exhibitions") {
-                                    console.log(`Leave section: ${sectionId}`);
+                                    // console.log(`Leave section: ${sectionId}`);
                                     updateActiveLink("atlas");
 
                                     // Hide landscape
@@ -96,7 +96,7 @@ export default function ScrollAnimations() {
                             },
                             onLeaveBack: () => {
                                 if (sectionId == "about") {
-                                    console.log(`LeaveBack section: ${sectionId}`);
+                                    // console.log(`LeaveBack section: ${sectionId}`);
                                     const navLinks = document.querySelectorAll("header nav ul li a");
                                     navLinks.forEach((l) => l.classList.remove("underline"));
                                 }
@@ -127,14 +127,14 @@ export default function ScrollAnimations() {
                             //markers: true,
                             onEnter: () => {
                                 landscapeTween.play();
-                                console.log("Enter landscape");
+                                // console.log("Enter landscape");
                             },
                             onLeaveBack: () => {
                                 landscapeTween.reverse();
                             },
                             onLeave: () => {
                                 landscapeTween.reverse();
-                                console.log("Leave landscape");
+                                // console.log("Leave landscape");
                             },
                         });
                     };

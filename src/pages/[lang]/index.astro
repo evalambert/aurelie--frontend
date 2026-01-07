@@ -50,31 +50,31 @@ const sliderLandscape = await fetchApi({
 <Layout>
   
   <div>
-    <div id="landscape" class=" h-[100svh] relative md:absolute scroll-mt-header-height opacity-100 transition duration-800">
+    <div id="landscape" class=" h-[100svh] relative lg:absolute scroll-mt-header-height opacity-100 transition duration-800">
       <PreviewPanel slidersLandscape={sliderLandscape} client:load />
     </div>
 
     <section
       id="about"
-      class="px-x-body md:grid md:grid-cols-24 md:gap-[10px] transition-opacity duration-300 md:opacity-10 md:hover:opacity-100 scroll-mt-header-height pt-header-height"
+      class="px-x-body lg:grid lg:grid-cols-24 lg:gap-[10px] transition-opacity duration-300 lg:opacity-10 lg:hover:opacity-100 lg:scroll-mt-header-height pt-header-height"
     >
-      <div class="md:col-span-10 lg:col-span-8">
+      <div class="lg:col-span-8">
         <About data={about} lang={lang} />
       </div>
     </section>
 
     <section
       id="exhibitions"
-      class="px-x-body md:grid md:grid-cols-24 md:gap-[10px] scroll-mt-header-height"
+      class="px-x-body lg:grid lg:grid-cols-24 lg:gap-[10px] scroll-mt-header-height"
     >
       <div
-        class="md:col-span-10 lg:col-span-10 md:gap-[10px] scroll-mt-header-height"
+        class="lg:col-span-10 lg:gap-[10px] scroll-mt-header-height"
       >
         <Exhibitions client:load data={exhibitions} lang={lang} />
       </div>
     </section>
 
-    <section id="atlas" class="md:mt-[80vh]">
+    <section id="atlas" class="lg:mt-[80vh]">
       <Atlas client:load={true} atlases={atlases} />
     </section>
   </div>

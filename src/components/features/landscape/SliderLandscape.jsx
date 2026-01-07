@@ -7,7 +7,7 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
   const coverUrl = useResponsiveImage(slider.cover, "cover"); // image ou vidéo
   const backgroundUrl = useResponsiveImage(slider.background, "lightbox");
   const coverVideoImage = useResponsiveImage(slider.coverVideo, "cover");
-  console.log("coverVideoImage", coverVideoImage);
+  // console.log("coverVideoImage", coverVideoImage);
 
   const isCoverVideo = slider.cover?.mime?.startsWith("video/");
   const isBackgroundVideo = slider.background?.mime?.startsWith("video/");
@@ -39,13 +39,13 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
 
   const handlePressStart = (e) => {
     // console.log pour debugging
-    console.log("handler start (react)", e.type);
+    // console.log("handler start (react)", e.type);
     setHovered(true);
     playCoverVideo();
   };
 
   const handlePressEnd = (e) => {
-    console.log("handler end (react)", e?.type);
+    //console.log("handler end (react)", e?.type);
     // e.preventDefault(); // si besoin mais ici on utilise native avec passive:false
     setHovered(false);
     pauseCoverVideo();
@@ -59,19 +59,19 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
     const onTouchStart = (ev) => {
       isScrolling.current = false;
       setHovered(true);
-      console.log("native touchstart");
+      //console.log("native touchstart");
       playCoverVideo();
     };
 
     const onTouchMove = (ev) => {
-      console.log("native touchmove");
+      //console.log("native touchmove");
       setHovered(false);
       isScrolling.current = true; // l’utilisateur scroll
       pauseCoverVideo();
     };
 
     const onTouchEnd = (ev) => {
-      console.log("native touchend");
+      //console.log("native touchend");
 
       if (!isScrolling.current) {
         // ➤ Super court : c’était un TAP → on change de slide
@@ -85,18 +85,18 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
       }
     };
     const onTouchCancel = (ev) => {
-      console.log("native touchcancel", ev.type);
+      //console.log("native touchcancel", ev.type);
       setHovered(false);
       pauseCoverVideo();
     };
 
     const onPointerDown = (ev) => {
-      console.log("native pointerdown", ev.type);
+      //console.log("native pointerdown", ev.type);
       setHovered(true);
       playCoverVideo();
     };
     const onPointerUp = (ev) => {
-      console.log("native pointerup", ev.type);
+      //console.log("native pointerup", ev.type);
       setHovered(false);
       pauseCoverVideo();
       if (onMouseLeave) onMouseLeave();
@@ -132,9 +132,8 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
           WebkitUserSelect: "none",
           userSelect: "none",
           WebkitTouchCallout: "none",
-          touchAction: "none",
         }}
-        className={`slider-landscape absolute md:fixed md:top-[calc(var(--spacing-y-body)+17px)] md:left-[41.2vw] lg:left-[42vw] w-full md:w-[57.8vw] lg:w-[58vw] z-20 md:h-[calc(100vh-(var(--spacing-y-body)*2))] max-md:flex max-md:items-end max-md:h-[100svh] ${opacityClass} ${hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"
+        className={`slider-landscape absolute lg:fixed lg:top-[calc(var(--spacing-y-body)+17px)] lg:left-[41.2vw] lg:left-[42vw] w-full lg:w-[57.8vw] lg:w-[58vw] z-20 lg:h-[calc(100vh-(var(--spacing-y-body)*2))] max-lg:flex max-lg:items-end max-lg:h-[100svh] ${opacityClass} ${hovered ? "z-80 !opacity-100 grayscale-0" : "grayscale-100"
           }`}
         // on conserve tes handlers react au cas où
         {...(!isMobile
@@ -163,18 +162,18 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
         <div className="relative">
           {/* Affiche l'image coverVideo SI elle existe (peut être une image, même si cover est une vidéo) */}
           {hasCoverVideoImage && coverVideoImage && (
-            <div className="md:hidden absolute overflow-hidden top-0 max-md:left-[10px] md:mt-[-17px] max-w-[calc(100vw-20px)] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
+            <div className="lg:hidden absolute overflow-hidden top-0 max-lg:left-[10px] lg:mt-[-17px] max-w-[calc(100vw-20px)] lg:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
               <img className="image--video w-full h-full object-cover " src={coverVideoImage} alt="" />
             </div>
           )}
           
           {/* Affiche la vidéo SI cover est une vidéo */}
           {isCoverVideo && (
-            <div className="max-md:pb-x-body max-md:pl-x-body md:mt-[-17px] max-w-[calc(100vw-10px)] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
+            <div className="max-lg:pb-x-body max-lg:pl-x-body lg:mt-[-17px] max-w-[calc(100vw-10px)] lg:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]">
               <video
                 ref={coverVideoRef}
                 src={coverUrl || slider.cover?.url}
-                className={`opacity-100 md:pointer-events-none`}
+                className={`opacity-100 lg:pointer-events-none`}
                 loop
                 muted
                 playsInline
@@ -190,8 +189,8 @@ const SliderLandscape = ({ slider, mode, isMobile, onMouseLeave }) => {
           <img
             src={coverUrl}
             draggable="false"
-            className={` max-md:pb-[10px] max-md:pl-[10px] md:-mt-[17px] md:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
-              ? "max-w-[calc(100vw-var(--spacing-x-body))] md:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
+            className={` max-lg:pb-[10px] max-lg:pl-[10px] lg:-mt-[17px] lg:pointer-events-none max-h-[calc(100vh-(var(--spacing-y-body)*2))] ${isLandscape
+              ? "max-w-[calc(100vw-var(--spacing-x-body))] lg:max-w-[calc(57.8vw-10px)] lg:max-w-[calc(58vw-10px)]"
               : "max-w-[80vw] pl-[10px]"
               }`}
             alt=""
