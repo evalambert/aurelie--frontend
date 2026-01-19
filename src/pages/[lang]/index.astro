@@ -3,11 +3,11 @@
 import fetchApi from "../../assets/scripts/libs/strapi";
 import Layout from "../../layouts/Layout.astro";
 import About from "../../layouts/About.astro";
+import Footer from "../../layouts/Footer.astro";
 import Atlas from "../../layouts/Atlas.jsx";
 import Exhibitions from "../../layouts/Exhibitions.jsx";
 import PreviewPanel from "../../components/features/PreviewPanel.jsx";
 import ScrollAnimations from "../../components/features/ScrollAnimations.jsx";
-
 
 const { lang } = Astro.params;
 
@@ -20,14 +20,13 @@ const about = await fetchApi({
   wrappedByKey: "data",
 });
 
-
 const exhibitions = await fetchApi({
   endpoint: "exhibitions",
   query: {
     "populate[atlasRelation][populate]": "*",
     "populate[exhibitionView][populate]": "*",
   },
-  locale: lang, 
+  locale: lang,
   wrappedByKey: "data",
 });
 
@@ -48,9 +47,11 @@ const sliderLandscape = await fetchApi({
 ---
 
 <Layout>
-  
   <div>
-    <div id="landscape" class=" h-[100svh] relative lg:absolute scroll-mt-header-height opacity-100 transition duration-800">
+    <div
+      id="landscape"
+      class="h-[100svh] relative lg:absolute scroll-mt-header-height opacity-100 transition duration-800"
+    >
       <PreviewPanel slidersLandscape={sliderLandscape} client:load />
     </div>
 
@@ -67,16 +68,16 @@ const sliderLandscape = await fetchApi({
       id="exhibitions"
       class="px-x-body lg:grid lg:grid-cols-24 lg:gap-[10px] scroll-mt-header-height"
     >
-      <div
-        class="lg:col-span-10 lg:gap-[10px] scroll-mt-header-height"
-      >
+      <div class="lg:col-span-10 lg:gap-[10px] scroll-mt-header-height">
         <Exhibitions client:load data={exhibitions} lang={lang} />
       </div>
     </section>
 
-    <section id="atlas" class="lg:mt-[80vh]">
+    <section id="atlas" class="lg:mt-[80vh] bg-[#E0E0E0] ">
       <Atlas client:load={true} atlases={atlases} />
+      <Footer data={about} lang={lang} />
     </section>
+
   </div>
   <ScrollAnimations client:load />
 </Layout>

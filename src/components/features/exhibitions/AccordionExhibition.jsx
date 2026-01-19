@@ -131,17 +131,17 @@ export default function AccordionExhibition({
                         .join(".")}
                     </p>
                   )}
-                  {item.curator && <p> Commissariat : {item.curator}</p>}
+                  {item.curator && <p> {lang === 'fr' ? 'Commissariat : ' : 'Curator : '} {item.curator}</p>}
                   {item.scenographie && (
-                    <p> Scénographie : {item.scenographie}</p>
+                    <p> {lang === 'fr' ? 'Scénographie : ' : 'Set design : '} {item.scenographie}</p>
                   )}
                   {item.copyright && (
-                    <p className=""> Crédits photos : © {item.copyright}</p>
+                    <p className=""> {lang === 'fr' ? 'Crédits photos : ' : 'Photo credits : '} © {item.copyright}</p>
                   )}
                   {item.link && (
                     <p>
                       <a href={item.link} target="_blank">
-                        En savoir plus…
+                        {lang === 'fr' ? 'En savoir plus…' : 'Learn more…'}
                       </a>
                     </p>
                   )}
