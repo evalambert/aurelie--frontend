@@ -1,0 +1,17 @@
+---
+// src/layouts/Footer.astro
+
+const { data, lang } = Astro.props;
+---
+
+<div
+    class="flex justify-between mt-y-body mx-x-body pb-[10px]"
+>
+    <a href="https://greta-oto.xyz" target="_blank">
+        <h3 class="whitespace-nowrap">
+            {lang === 'fr' ? 'design et développement : greta oto' : 'design and development : greta oto'}</h3>
+    </a>
+    <p class="footer--year">
+        ©{data.year}
+    </p>
+</div>
