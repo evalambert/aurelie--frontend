@@ -25,6 +25,7 @@ const exhibitions = await fetchApi({
   query: {
     "populate[atlasRelation][populate]": "*",
     "populate[exhibitionView][populate]": "*",
+    "populate[contributionFields]": "*",
   },
   locale: lang,
   wrappedByKey: "data",
@@ -74,7 +75,7 @@ const sliderLandscape = await fetchApi({
     </section>
 
     <section id="atlas" class="lg:mt-[80vh] bg-[#E0E0E0] ">
-      <Atlas client:load={true} atlases={atlases} />
+      <Atlas client:load={true} atlases={atlases} lang={lang} />
       <Footer data={about} lang={lang} />
     </section>
 

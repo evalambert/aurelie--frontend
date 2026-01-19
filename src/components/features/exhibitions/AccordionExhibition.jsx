@@ -135,6 +135,10 @@ export default function AccordionExhibition({
                   {item.scenographie && (
                     <p> {lang === 'fr' ? 'Scénographie : ' : 'Set design : '} {item.scenographie}</p>
                   )}
+                  {Array.isArray(item.contributionFields) && item.contributionFields.map((contribution) => (
+                    <p key={contribution.id}>{contribution.label} : {contribution.content}</p>
+                  ))} 
+
                   {item.copyright && (
                     <p className=""> {lang === 'fr' ? 'Crédits photos : ' : 'Photo credits : '} © {item.copyright}</p>
                   )}
