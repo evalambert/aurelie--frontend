@@ -1,9 +1,23 @@
 //components/features/exhibitions/AtlasList.jsx
+import { useState } from "react";
 import { previewStore } from "../../../stores/previewStore";
 import { useIsDesktop } from "../../../hooks/isDesktop";
 
 export default function AtlasList({ item, lang }) {
   const isDesktop = useIsDesktop(1024);
+  const [activeImageUrl, setActiveImageUrl] = useState(null);
+
+  const handleClick = (url) => {
+    if (activeImageUrl === url) {
+      // Si l'image est déjà affichée, on la ferme
+      previewStore.clearHover();
+      setActiveImageUrl(null);
+    } else {
+      // Sinon, on affiche la nouvelle image
+      previewStore.setHoverImage(url);
+      setActiveImageUrl(url);
+    }
+  };
 
   return (
     <div className="exhibition--atlas-list flex flex-col lg:gap-[10px]">
@@ -34,6 +48,7 @@ export default function AtlasList({ item, lang }) {
                 onPointerLeave={
                   isDesktop ? () => previewStore.clearHover() : undefined
                 }
+                onClick={!isDesktop ? () => handleClick(url) : undefined}
               >
                 {fields.join(", ")}
               </p>

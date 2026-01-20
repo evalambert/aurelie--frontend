@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import SliderLandscape from "./landscape/SliderLandscape.jsx";
 import ImageResponsivePreviewPannel from "../common/ImageResponsivePreviewPannel.jsx";
 import VideoResponsivePreviewPannel from "../common/VideoResponsivePreviewPannel.jsx";
+import { previewStore } from "../../stores/previewStore";
 
 export default function PreviewPanel({ slidersLandscape }) {
 
@@ -202,6 +203,7 @@ export default function PreviewPanel({ slidersLandscape }) {
                 key={media.id}
                 video={{ url: media.videoUrl }}
                 isVisible={isVisible}
+                onClick={() => previewStore.clearHover()}
               />
             );
           }
@@ -212,6 +214,7 @@ export default function PreviewPanel({ slidersLandscape }) {
               key={media.id}
               img={media}
               isVisible={isVisible}
+              onClick={() => previewStore.clearHover()}
             />
           );
         })}
