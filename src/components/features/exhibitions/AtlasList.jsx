@@ -37,22 +37,27 @@ export default function AtlasList({ item, lang }) {
           const fields = [work.title, work.technique, work.origin, work.year].filter(Boolean);
 
           return (
-            <div key={work.id} className="flex items-center gap-2">
-              <p
-                className="cursor-pointer"
-                onPointerEnter={
-                  isDesktop
-                    ? () => previewStore.setHoverImage(url)
-                    : undefined
-                }
-                onPointerLeave={
-                  isDesktop ? () => previewStore.clearHover() : undefined
-                }
-                onClick={!isDesktop ? () => handleClick(url) : undefined}
-              >
-                {fields.join(", ")}
-              </p>
-            </div>
+            <ul key={work.id} className="flex items-center gap-2">
+              <li>
+                <a href="#" className="cursor-pointer"
+                  onPointerEnter={
+                    isDesktop
+                      ? () => previewStore.setHoverImage(url)
+                      : undefined
+                  }
+                  onPointerLeave={
+                    isDesktop ? () => previewStore.clearHover() : undefined
+                  }
+                  onClick={(e) => {
+                    e.preventDefault(); // ← Empêche le comportement par défaut (navigation)
+                    !isDesktop && handleClick(url);
+                  }}
+                >
+                  {fields.join(", ")}
+                </a>
+
+              </li>
+            </ul>
           );
         })}
       </div>
