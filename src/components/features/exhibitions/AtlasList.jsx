@@ -53,7 +53,7 @@ export default function AtlasList({ item, lang }) {
                     !isDesktop && handleClick(url);
                   }}
                 >
-                  {fields.join(", ")}
+                  {fields.join(", ")} 
                 </a>
 
               </li>
