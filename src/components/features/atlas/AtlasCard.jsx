@@ -10,10 +10,10 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
 
   const getClickData = () => {
     if (!atlas.image) return atlas;
-    
+
     const width = window.innerWidth;
     let imageUrl;
-    
+
     if (isDesktop) {
       // Version lightbox en desktop (comme useResponsiveImage(slider.background, "lightbox"))
       imageUrl = getResponsiveImageUrl(atlas.image, "lightbox", width);
@@ -21,7 +21,7 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
       // Version medium en mobile
       imageUrl = atlas.image.formats?.medium?.url || atlas.image.url;
     }
-    
+
     // Retourner l'objet atlas complet avec l'image traitée pour mobile/desktop
     // pour que ImageLightboxAtlas puisse utiliser l'URL et accéder à oembedVideo
     return {
@@ -29,8 +29,8 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
       image: {
         ...atlas.image,
         url: imageUrl,
-        formats: undefined // Supprimer formats pour forcer l'utilisation de l'URL
-      }
+        formats: undefined, // Supprimer formats pour forcer l'utilisation de l'URL
+      },
     };
   };
 
@@ -57,15 +57,17 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
         </div>
       ) : null}
       <div>
-        <h2 className="inline">{atlas.title}</h2>
+        <h2 className="inline">{atlas.title}, </h2>
         {atlas.medium && (
-          <span className="inline lowercase">, {atlas.medium.medium}</span>
+          <span className="inline lowercase">{atlas.technique}, </span>
         )}
         {atlas.format && (
-          <span className="inline lowercase">, {atlas.format}</span>
+          <span className="inline lowercase whitespace-nowrap">
+            {atlas.format},{" "}
+          </span>
         )}
-        {atlas.year && <span className="inline">, {atlas.year}</span>}
-        {atlas.duration && <span className="inline">, {atlas.duration}</span>}
+        {atlas.duration && <span className="inline">{atlas.duration}, </span>}
+        {atlas.year && <span className="inline">{atlas.year}</span>}
       </div>
     </div>
   );
