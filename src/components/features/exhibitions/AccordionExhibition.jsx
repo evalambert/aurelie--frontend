@@ -108,11 +108,19 @@ export default function AccordionExhibition({
                   ))}
                 </div>
                 <div className="exhibition--credits">
-                  {item.groupShow && (lang === 'fr' ? (
-                    <p>Exposition collective</p>
+                  {item.groupShow ? (
+                    lang === 'fr' ? (
+                      <p>Exposition collective</p>
+                    ) : (
+                      <p>Group show</p>
+                    )
                   ) : (
-                    <p>Group show</p>
-                  ))}
+                    lang === 'fr' ? (
+                      <p>Exposition monographique</p>
+                    ) : (
+                      <p>Solo show</p>
+                    )
+                  )}
                   {item.startingDate && item.endingDate && (
                     <p>
                       {" "}
