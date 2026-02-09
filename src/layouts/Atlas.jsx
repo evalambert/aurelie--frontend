@@ -189,8 +189,8 @@ const Atlas = ({ atlases, lang }) => {
 
   return (
     <>
-      <div className="wrapper-atlas pt-[53px] lg:pt-[40px] py-y-body px-x-body bg-[#E0E0E0] min-h-screen">
-        <div className="sticky top-[60px] lg:top-[40px]">
+      <div className="wrapper-atlas pt-header-height py-y-body px-x-body bg-[#E0E0E0] min-h-screen">
+        <div className="sticky top-[60px] lg:top-[40px] z-50">
           {/* --- Filters Medium --- */}
           <div className="filter-medium flex gap-[10px]">
             <p>{lang === "fr" ? "supports :" : "mediums :"}</p>
@@ -209,7 +209,7 @@ const Atlas = ({ atlases, lang }) => {
           {/* --- Filters Territory --- */}
           <div className="filter-territory flex gap-[10px]">
             <p>{lang === "fr" ? "territoires :" : "territories :"}</p>
-            <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] lg:top-[40px] mb-[50px]">
+            <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] lg:top-[40px] mb-[35px]">
               {territoriesList.map((tItem) => (
                 <FilterAtlasList
                   key={tItem}

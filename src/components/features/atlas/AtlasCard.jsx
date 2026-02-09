@@ -57,13 +57,13 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
         </div>
       ) : null}
       <div>
-        <h2 className="inline">{atlas.title}, </h2>
+        <h2 className="inline">[&thinsp;{atlas.title}&thinsp;] </h2> 
         {atlas.medium && (
           <span className="inline lowercase">{atlas.technique}, </span>
         )}
         {atlas.format && (
           <span className="inline lowercase whitespace-nowrap">
-            {atlas.format},{" "}
+             {atlas.format},{" "}
           </span>
         )}
         {atlas.duration && <span className="inline">{atlas.duration}, </span>}

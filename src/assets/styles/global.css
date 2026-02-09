@@ -80,10 +80,8 @@ section:not(section:last-child) {
 /* ScrollSpy Animations */
 /* -------------------------------------------------------------------- */
 
-section.active,
-section.active a,
-section.active li {
-  @apply max-lg:!opacity-100;
+section.active{
+  @apply opacity-100;
 }
 
 
