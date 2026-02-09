@@ -101,26 +101,18 @@ export default function AccordionExhibition({
             {/* --- EXHIBITION WRAPPER-CONTENTS --- */}
             <div className="exhibition--wrapper-content  pb-[55px] flex flex-col gap-[60px] lg:gap-[35px]">
               {/* --- EXHIBITION INFO –-- */}
-              <div className="exhibition--infos pl-[45px] lg:pl-[55px] lg:pt-[12px] flex flex-col gap-[30px] lg:gap-[25px]">
-                <div className="exhibition--description">
+              <div className="exhibition--infos lg:pt-[12px] grid grid-cols-10 gap-[10px]">
+                <div className="exhibition--description col-start-2 col-end-10">
                   {item.text?.map((block, i) => (
                     <p key={i}>{block.children.map((c) => c.text).join(" ")}</p>
                   ))}
                 </div>
-                <div className="exhibition--credits">
-                  {item.groupShow ? (
-                    lang === 'fr' ? (
-                      <p>Exposition collective</p>
-                    ) : (
-                      <p>Group show</p>
-                    )
+                <div className="exhibition--credits col-start-2 col-end-10">
+                  {item.groupShow && (lang === 'fr' ? (
+                    <p>Exposition collective</p>
                   ) : (
-                    lang === 'fr' ? (
-                      <p>Exposition monographique</p>
-                    ) : (
-                      <p>Solo show</p>
-                    )
-                  )}
+                    <p>Group show</p>
+                  ))}
                   {item.startingDate && item.endingDate && (
                     <p>
                       {" "}

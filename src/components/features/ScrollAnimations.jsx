@@ -50,8 +50,8 @@ export default function ScrollAnimations() {
 
                         ScrollTrigger.create({
                             trigger: section,
-                            start: "top 97px",
-                            end: "bottom 97px",
+                            start: "top center",
+                            end: "bottom center",
                             //markers: true, // Affiche les markers pour visualiser les triggers
                             onEnter: () => {
                                 // console.log(`Enter section: ${sectionId}`);
