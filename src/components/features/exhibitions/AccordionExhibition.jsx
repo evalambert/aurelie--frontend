@@ -101,13 +101,13 @@ export default function AccordionExhibition({
             {/* --- EXHIBITION WRAPPER-CONTENTS --- */}
             <div className="exhibition--wrapper-content  pb-[55px] flex flex-col gap-[60px] lg:gap-[35px]">
               {/* --- EXHIBITION INFO –-- */}
-              <div className="exhibition--infos lg:pt-[12px] grid grid-cols-10 gap-[10px]">
-                <div className="exhibition--description col-start-2 col-end-10">
+              <div className="exhibition--infos p-0 pl-[45px] lg:pl-[55px] lg:pt-[12px] grid grid-cols-9 gap-[10px]">
+                <div className="exhibition--description col-start-1 col-end-9">
                   {item.text?.map((block, i) => (
                     <p key={i}>{block.children.map((c) => c.text).join(" ")}</p>
                   ))}
                 </div>
-                <div className="exhibition--credits col-start-2 col-end-10">
+                <div className="exhibition--credits col-start-1 col-end-9">
                   {item.groupShow && (lang === 'fr' ? (
                     <p>Exposition collective</p>
                   ) : (
