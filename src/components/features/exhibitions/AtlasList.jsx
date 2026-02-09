@@ -22,7 +22,7 @@ export default function AtlasList({ item, lang }) {
   return (
     <div className="exhibition--atlas-list flex flex-col lg:gap-[10px]">
       {item.atlasRelation.length > 0 && (
-        <h3>{lang === "fr" ? "Œuvres exposées :" : "Works exhibited :"}</h3>
+        <h3>{lang === "fr" ? "Pièces exposées :" : "Exhibited pieces :"}</h3>
       )}
       <div>
         {item.atlasRelation?.map((work) => {
