@@ -190,36 +190,34 @@ const Atlas = ({ atlases, lang }) => {
   return (
     <>
       <div className="wrapper-atlas pt-header-height py-y-body px-x-body bg-[#E0E0E0] min-h-screen">
-        <div className="sticky top-[60px] lg:top-[40px] z-50">
+        <div className="sticky top-[60px] lg:top-[52px] z-50">
           {/* --- Filters Medium --- */}
-          <div className="filter-medium flex gap-[10px]">
-            <p>{lang === "fr" ? "supports :" : "mediums :"}</p>
-            <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] lg:top-[40px] mb-[5px]">
-              {mediumsList.map((m) => (
-                <FilterAtlasList
-                  key={m}
-                  mediumName={m === "all" ? t("all", lang) : m}
-                  onClick={() => filterMedium(m)} // ⚠️ valeur interne inchangée
-                  isActive={activeMedium === m}
-                />
-              ))}
-            </ul>
-          </div>
+          <fieldset className="filter-medium flex flex-wrap items-center gap-x-[10px] mb-[3px] border-0 p-0">
+            <legend className="sr-only">{lang === "fr" ? "Filtrer par support" : "Filter by medium"}</legend>
+            <span className="label">{lang === "fr" ? "supports :" : "mediums :"}</span>
+            {mediumsList.map((m) => (
+              <FilterAtlasList
+                key={m}
+                mediumName={m === "all" ? t("all", lang) : m}
+                onClick={() => filterMedium(m)} // ⚠️ valeur interne inchangée
+                isActive={activeMedium === m}
+              />
+            ))}
+          </fieldset>
 
           {/* --- Filters Territory --- */}
-          <div className="filter-territory flex gap-[10px]">
-            <p>{lang === "fr" ? "territoires :" : "territories :"}</p>
-            <ul className="filters flex flex-wrap gap-x-[10px] gap-y-[3px] lg:top-[40px] mb-[35px]">
-              {territoriesList.map((tItem) => (
-                <FilterAtlasList
-                  key={tItem}
-                  mediumName={tItem === "all" ? t("all", lang) : tItem}
-                  onClick={() => filterTerritory(tItem)}
-                  isActive={activeTerritory === tItem}
-                />
-              ))}
-            </ul>
-          </div>
+          <fieldset className="filter-territory flex flex-wrap items-center gap-x-[10px] mb-[35px] border-0 p-0">
+            <legend className="sr-only">{lang === "fr" ? "Filtrer par territoire" : "Filter by territory"}</legend>
+            <span className="label">{lang === "fr" ? "territoires :" : "territories :"}</span>
+            {territoriesList.map((tItem) => (
+              <FilterAtlasList
+                key={tItem}
+                mediumName={tItem === "all" ? t("all", lang) : tItem}
+                onClick={() => filterTerritory(tItem)}
+                isActive={activeTerritory === tItem}
+              />
+            ))}
+          </fieldset>
         </div>
 
         {/* --- Cards --- */}
