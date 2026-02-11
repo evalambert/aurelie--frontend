@@ -108,11 +108,11 @@ export default function AccordionExhibition({
                   ))}
                 </div>
                 <div className="exhibition--credits col-start-1 col-end-9">
-                  {item.groupShow && (lang === 'fr' ? (
-                    <p>Exposition collective</p>
+                  {lang === 'fr' ? (
+                    <p>{item.groupShow ? 'Exposition collective' : 'Exposition solo'}</p>
                   ) : (
-                    <p>Group show</p>
-                  ))}
+                    <p>{item.groupShow ? 'Group show' : 'Solo show'}</p>
+                  )}
                   {item.startingDate && item.endingDate && (
                     <p>
                       {" "}
@@ -144,7 +144,7 @@ export default function AccordionExhibition({
                   )}
                   {item.link && (
                     <p>
-                      <a href={item.link} target="_blank">
+                      <a href={item.link} target="_blank" className="underline decoration-1 underline-offset-[3px]">
                         {lang === 'fr' ? 'En savoir plus…' : 'Learn more…'}
                       </a>
                     </p>
