@@ -102,7 +102,7 @@ export default function ImageExhibitionItem({ img }) {
         loading="lazy"
         data-preview={previewUrl} // 🔥 nécessaire pour GSAP mobile
         className={
-          "exhibition-image filter grayscale opacity-50 w-full h-auto pb-[10px] " +
+          "exhibition-image filter grayscale opacity-50 w-full h-auto " +
           (isLandscape ? "lg:w-[70%] " : "lg:w-[50%] ") +
           (hovered ? " z-80 !opacity-100 grayscale-0" : " grayscale-100")
         }

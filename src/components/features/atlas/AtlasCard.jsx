@@ -36,7 +36,6 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
 
   return (
     <div
-      id={`atlas-${id}`}
       className="transition-opacity duration-500 cursor-pointer"
       style={{ opacity: loaded ? 1 : 0 }}
       onClick={() => onCardClick(getClickData())}
