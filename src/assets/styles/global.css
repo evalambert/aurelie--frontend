@@ -83,6 +83,11 @@ section:not(section:last-child) {
 section.active{
   @apply opacity-100;
 }
+#exhibitions.active ul,
+#exhibitions.active li,
+#exhibitions.active a{
+  @apply max-md:opacity-100;
+}
 
 
 
