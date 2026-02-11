@@ -1,84 +1,86 @@
 ---
 //pages/[lang]/index.astro
-import fetchApi from "../../assets/scripts/libs/strapi";
-import Layout from "../../layouts/Layout.astro";
-import About from "../../layouts/About.astro";
-import Footer from "../../layouts/Footer.astro";
-import Atlas from "../../layouts/Atlas.jsx";
-import Exhibitions from "../../layouts/Exhibitions.jsx";
-import PreviewPanel from "../../components/features/PreviewPanel.jsx";
-import ScrollAnimations from "../../components/features/ScrollAnimations.jsx";
+import fetchApi from '../../assets/scripts/libs/strapi';
+import Layout from '../../layouts/Layout.astro';
+import About from '../../layouts/About.astro';
+import Footer from '../../layouts/Footer.astro';
+import Atlas from '../../layouts/Atlas.jsx';
+import Exhibitions from '../../layouts/Exhibitions.jsx';
+import PreviewPanel from '../../components/features/PreviewPanel.jsx';
+import ScrollAnimations from '../../components/features/ScrollAnimations.jsx';
 
 const { lang } = Astro.params;
 
 const about = await fetchApi({
-  endpoint: "about",
-  query: {
-    populate: "*",
-  },
-  locale: lang,
-  wrappedByKey: "data",
+    endpoint: 'about',
+    query: {
+        populate: '*',
+    },
+    locale: lang,
+    wrappedByKey: 'data',
 });
 
 const exhibitions = await fetchApi({
-  endpoint: "exhibitions",
-  query: {
-    "populate[atlasRelation][populate]": "*",
-    "populate[exhibitionView][populate]": "*",
-    "populate[contributionFields]": "*",
-  },
-  locale: lang,
-  wrappedByKey: "data",
+    endpoint: 'exhibitions',
+    query: {
+        'populate[atlasRelation][populate]': '*',
+        'populate[exhibitionView][populate]': '*',
+        'populate[contributionFields]': '*',
+    },
+    locale: lang,
+    wrappedByKey: 'data',
 });
 
 const atlases = await fetchApi({
-  endpoint: "atlases",
-  query: {
-    populate: "*",
-  },
-  locale: lang,
-  wrappedByKey: "data",
+    endpoint: 'atlases',
+    query: {
+        populate: '*',
+    },
+    locale: lang,
+    wrappedByKey: 'data',
 });
 
 const sliderLandscape = await fetchApi({
-  endpoint: "slider-landscape?populate[slideLandscape][populate]=*",
-  locale: lang,
-  wrappedByKey: "data",
+    endpoint: 'slider-landscape?populate[slideLandscape][populate]=*',
+    locale: lang,
+    wrappedByKey: 'data',
 });
 ---
 
 <Layout>
-  <div>
-    <div
-      id="landscape"
-      class="h-[100svh] relative lg:absolute scroll-mt-header-height opacity-100 transition duration-800"
-    >
-      <PreviewPanel slidersLandscape={sliderLandscape} client:load />
+    <div>
+        <div
+            id='landscape'
+            class='h-[100svh] relative lg:absolute scroll-mt-header-height opacity-100 transition duration-800'
+        >
+            <PreviewPanel slidersLandscape={sliderLandscape} client:load />
+        </div>
+
+        <section
+            id='about'
+            class='px-x-body grid grid-cols-24 lg:gap-[10px] transition-opacity duration-300 lg:opacity-10 lg:hover:opacity-100 lg:scroll-mt-header-height pt-header-height'
+        >
+            <div class='lg:col-span-8 col-span-22'>
+                <About data={about} lang={lang} />
+            </div>
+        </section>
+
+        <section
+            id='exhibitions'
+            class='px-x-body grid grid-cols-24 lg:gap-[10px] scroll-mt-header-height'
+        >
+            <div
+                class='lg:col-span-10 col-span-24 lg:gap-[10px] scroll-mt-header-height'
+            >
+                <Exhibitions client:load data={exhibitions} lang={lang} />
+            </div>
+        </section>
+
+        <section id='atlas' class='lg:mt-[80vh] bg-[#E0E0E0]'>
+            <Atlas client:load={true} atlases={atlases} lang={lang} />
+            <Footer data={about} lang={lang} />
+        </section>
     </div>
-
-    <section
-      id="about"
-      class="px-x-body lg:grid lg:grid-cols-24 lg:gap-[10px] transition-opacity duration-300 lg:opacity-10 lg:hover:opacity-100 lg:scroll-mt-header-height pt-header-height"
-    >
-      <div class="lg:col-span-8">
-        <About data={about} lang={lang} />
-      </div>
-    </section>
-
-    <section
-      id="exhibitions"
-      class="px-x-body lg:grid lg:grid-cols-24 lg:gap-[10px] scroll-mt-header-height"
-    >
-      <div class="lg:col-span-10 lg:gap-[10px] scroll-mt-header-height">
-        <Exhibitions client:load data={exhibitions} lang={lang} />
-      </div>
-    </section>
-
-    <section id="atlas" class="lg:mt-[80vh] bg-[#E0E0E0] ">
-      <Atlas client:load={true} atlases={atlases} lang={lang} />
-      <Footer data={about} lang={lang} />
-    </section>
-
-  </div>
-  <ScrollAnimations client:load />
+    
+    <ScrollAnimations client:load />
 </Layout>
