@@ -4,7 +4,7 @@ import { navigate } from "astro:transitions/client";
 const LangSwitcher = ({ currentLang, currentPath }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const otherLang = currentLang === "Fr" ? "En" : "Fr";
+  const otherLang = currentLang === "fr" ? "en" : "fr";
 
   const cleanPath = currentPath.replace(/^\/(fr|en)/, "");
 
