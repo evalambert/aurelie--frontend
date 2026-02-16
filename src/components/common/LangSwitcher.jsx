@@ -4,7 +4,7 @@ import { navigate } from "astro:transitions/client";
 const LangSwitcher = ({ currentLang, currentPath }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const otherLang = currentLang === "fr" ? "en" : "fr";
+  const otherLang = currentLang === "Fr" ? "En" : "Fr";
 
   const cleanPath = currentPath.replace(/^\/(fr|en)/, "");
 
@@ -18,7 +18,7 @@ const LangSwitcher = ({ currentLang, currentPath }) => {
       onClick={handleLanguageChange}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="shrink-0 w-[35px] cursor-pointer"
+      className="shrink-0 w-[35px] cursor-pointer capitalize"
     >
       {isHovered ? `(${otherLang})` : `(${currentLang})`}
     </button>

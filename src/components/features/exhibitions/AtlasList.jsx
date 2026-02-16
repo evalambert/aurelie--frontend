@@ -7,6 +7,15 @@ export default function AtlasList({ item, lang }) {
   const isDesktop = useIsDesktop(1024);
   const [activeImageUrl, setActiveImageUrl] = useState(null);
 
+  // Fonction pour capitaliser seulement le premier mot
+  const capitalizeFirstWord = (str) => {
+    if (!str) return str;
+    const words = str.split(" ");
+    if (words.length === 0) return str;
+    return words[0].charAt(0).toUpperCase() + words[0].slice(1).toLowerCase() + 
+           (words.length > 1 ? " " + words.slice(1).join(" ") : "");
+  };
+
   const handleClick = (url) => {
     if (activeImageUrl === url) {
       // Si l'image est déjà affichée, on la ferme
@@ -34,7 +43,7 @@ export default function AtlasList({ item, lang }) {
             work.image?.formats?.large?.url ||
             work.image?.url;
           if (!url) return null;
-          const fields = [work.title, work.technique, work.origin, work.year].filter(Boolean);
+          const fields = [ work.technique, work.origin, work.year].filter(Boolean);
 
           return (
             <ul key={work.id} className="flex items-center gap-2">
@@ -53,7 +62,7 @@ export default function AtlasList({ item, lang }) {
                     !isDesktop && handleClick(url);
                   }}
                 >
-                  {fields.join(", ")} 
+                  [&thinsp;{capitalizeFirstWord(work.title)}&thinsp;] {fields.join(", ")}
                 </a>
 
               </li>
