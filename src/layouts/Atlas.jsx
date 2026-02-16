@@ -1,5 +1,5 @@
 // src/layouts/Atlas.jsx
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import AtlasCard from "../components/features/atlas/AtlasCard.jsx";
 import FilterAtlasList from "../components/features/atlas/FilterAtlasList.jsx";
 import ImageLightboxAtlas from "../components/features/atlas/ImageLightboxAtlas.jsx";
@@ -145,45 +145,63 @@ const Atlas = ({ atlases, lang }) => {
 
   // Sibling cards •••••••••••••••••••••••••••••••••••••••••••••••••••••
 
-  const allById = new Map(filtered.map((item) => [item.id, item]));
+  // Fonction de mélange aléatoire (Fisher-Yates)
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
-  const ordered = [];
-  const idsToSkip = new Set();
+  const ordered = useMemo(() => {
+    const allById = new Map(filtered.map((item) => [item.id, item]));
+    const result = [];
+    const idsToSkip = new Set();
 
-  filtered.forEach((item) => {
-    if (idsToSkip.has(item.id)) return;
+    filtered.forEach((item) => {
+      if (idsToSkip.has(item.id)) return;
 
-    ordered.push(item);
-    idsToSkip.add(item.id);
+      result.push(item);
+      idsToSkip.add(item.id);
 
-    if (item.siblings?.length) {
-      item.siblings.forEach((sib) => {
-        const fullSibling = allById.get(sib.id) || sib;
+      if (item.siblings?.length) {
+        item.siblings.forEach((sib) => {
+          const fullSibling = allById.get(sib.id) || sib;
 
-        // ⛔️ NE PAS AJOUTER le sibling si son medium ne correspond pas au filtre
-        if (
-          activeMedium !== "all" &&
-          fullSibling.medium?.medium !== activeMedium
-        ) {
-          return;
-        }
-
-        // ⛔️ NE PAS AJOUTER le sibling si son territory ne correspond pas au filtre
-        if (activeTerritory !== "all") {
-          const siblingTerritory =
-            fullSibling.territory?.territory || fullSibling.territory;
-          if (siblingTerritory !== activeTerritory) {
+          // ⛔️ NE PAS AJOUTER le sibling si son medium ne correspond pas au filtre
+          if (
+            activeMedium !== "all" &&
+            fullSibling.medium?.medium !== activeMedium
+          ) {
             return;
           }
-        }
 
-        if (!idsToSkip.has(fullSibling.id)) {
-          ordered.push(fullSibling);
-          idsToSkip.add(fullSibling.id);
-        }
-      });
+          // ⛔️ NE PAS AJOUTER le sibling si son territory ne correspond pas au filtre
+          if (activeTerritory !== "all") {
+            const siblingTerritory =
+              fullSibling.territory?.territory || fullSibling.territory;
+            if (siblingTerritory !== activeTerritory) {
+              return;
+            }
+          }
+
+          if (!idsToSkip.has(fullSibling.id)) {
+            result.push(fullSibling);
+            idsToSkip.add(fullSibling.id);
+          }
+        });
+      }
+    });
+
+    // Mélanger uniquement si les deux filtres sont sur "all"
+    if (activeMedium === "all" && activeTerritory === "all") {
+      return shuffleArray(result);
     }
-  });
+
+    return result;
+  }, [filtered, activeMedium, activeTerritory]);
 
   // ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
 
