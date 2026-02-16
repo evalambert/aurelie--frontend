@@ -5,7 +5,7 @@ import { previewStore } from "../../../stores/previewStore";
 export default function AtlasListItem({ work }) {
     if (!work.image) return null;
     const url = work.image.formats?.large?.url || work.image.url;
-    const fields = [work.title, work.technique, work.origin, work.year].filter(Boolean);
+    const fields = [ work.technique, work.origin, work.year].filter(Boolean);
     return (
 
         <ul key={work.id} className="flex items-center gap-2">
@@ -14,7 +14,7 @@ export default function AtlasListItem({ work }) {
                 onPointerEnter={() => previewStore.setHoverImage(url)}
                 onPointerLeave={() => previewStore.clearHover()}
             >
-                {fields.join(", ")}
+                [&thinsp;{work.title}&thinsp;] {fields.join(", ")}
             </li>
         </ul>
 

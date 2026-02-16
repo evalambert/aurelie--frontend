@@ -34,6 +34,15 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
     };
   };
 
+  // Fonction pour capitaliser seulement le premier mot
+  const capitalizeFirstWord = (str) => {
+    if (!str) return str;
+    const words = str.split(" ");
+    if (words.length === 0) return str;
+    return words[0].charAt(0).toUpperCase() + words[0].slice(1).toLowerCase() + 
+           (words.length > 1 ? " " + words.slice(1).join(" ") : "");
+  };
+
   return (
     <div
       className="transition-opacity duration-500 cursor-pointer"
@@ -56,7 +65,7 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
         </div>
       ) : null}
       <div>
-        <h2 className="inline">[&thinsp;{atlas.title}&thinsp;] </h2> 
+        <h2 className="inline">[&thinsp;{capitalizeFirstWord(atlas.title)}&thinsp;] </h2> 
         {atlas.medium && (
           <span className="inline lowercase">{atlas.technique}, </span>
         )}

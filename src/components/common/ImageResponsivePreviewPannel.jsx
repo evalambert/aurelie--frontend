@@ -10,8 +10,8 @@ export default function ImageResponsivePreviewPannel({ img, isVisible, onClick }
   return (
     <img
       src={url}
-      className={`max-w-full max-h-full object-contain absolute top-0 lg:top-y-body left-0 max-md:h-[100dvh]
-        transition-opacity duration-300 
+      className={`max-w-full md:max-w-[calc(58vw-20px)] max-h-full object-contain absolute top-0 lg:top-y-body left-[10px] max-md:h-[100dvh]
+        transition-opacity duration-300
         ${isVisible ? "opacity-100 pointer-events-auto cursor-pointer" : "opacity-0 pointer-events-none"}`}
       onClick={isVisible ? onClick : undefined}
     />
