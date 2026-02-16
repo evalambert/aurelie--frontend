@@ -85,7 +85,8 @@ section.active{
 }
 #exhibitions.active ul,
 #exhibitions.active li,
-#exhibitions.active a{
+#exhibitions.active a
+#about.active{
   @apply max-md:opacity-100;
 }
 

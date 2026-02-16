@@ -50,9 +50,9 @@ export default function ScrollAnimations() {
 
                         ScrollTrigger.create({
                             trigger: section,
-                            start: "top center",
+                            start: isMobile() ? "top 80%" : "top center",
                             end: "bottom center",
-                            //markers: true, // Affiche les markers pour visualiser les triggers
+                            // markers: true, // Affiche les markers pour visualiser les triggers
                             onEnter: () => {
                                 // console.log(`Enter section: ${sectionId}`);
 
@@ -107,6 +107,20 @@ export default function ScrollAnimations() {
 
                 // Créer les triggers initiaux
                 createScrollTriggers();
+
+                // Recréer les triggers au resize pour appliquer le bon start (mobile vs desktop)
+                let lastMobile = isMobile();
+                const handleResize = () => {
+                    const nowMobile = isMobile();
+                    if (nowMobile !== lastMobile) {
+                        lastMobile = nowMobile;
+                        sections = [...document.querySelectorAll("section[id]")];
+                        createScrollTriggers();
+                        ScrollTrigger.refresh();
+                    }
+                };
+                window.addEventListener("resize", handleResize);
+                cleanupFunctions.push(() => window.removeEventListener("resize", handleResize));
 
                 // /* ----------------------------- LANDSCAPE MOBILE SCROLL LOGIC ----------------------------- */
                 // // Animation GSAP pour l'opacité du landscape sur mobile
