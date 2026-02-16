@@ -117,3 +117,8 @@ img {
 iframe{
   @apply w-full h-full;
 }
+
+
+.filter-medium legend + li > button{
+  @apply capitalize;
+}
