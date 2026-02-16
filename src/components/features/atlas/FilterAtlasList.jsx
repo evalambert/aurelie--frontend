@@ -1,15 +1,11 @@
 // src/components/features/atlas/FilterAtlasList.jsx
 
 const FilterAtlasList = ({ mediumName, onClick, isActive }) => {
-  // Fonction pour capitaliser seulement la première lettre
-  const capitalizeFirstLetter = (str) => {
-    if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-  };
+
   return (
     <li className="group [&:not(:last-child)]:after:content-[','] flex items-center">
       <button
-        className=" flex items-center gap-[5px] cursor-pointer"
+        className=" flex items-center gap-[5px] cursor-pointer lowercase"
         onClick={onClick}
       >
         <div
@@ -19,7 +15,7 @@ const FilterAtlasList = ({ mediumName, onClick, isActive }) => {
               : "" // ← style inactif
           }`}
         ></div>
-        {capitalizeFirstLetter(mediumName)}
+        {mediumName}
       </button>
     </li>
   );
