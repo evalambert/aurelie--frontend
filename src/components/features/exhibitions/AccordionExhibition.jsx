@@ -124,6 +124,7 @@ export default function AccordionExhibition({
                                     ) : (
                                         <p>{item.groupShow ? 'Group show' : 'Solo show'}</p>
                                     )}
+
                                     {item.startingDate && item.endingDate && (
                                         <p className='dates'>
                                             {' '}
@@ -142,6 +143,12 @@ export default function AccordionExhibition({
                                                 .join('.')}
                                         </p>
                                     )}
+                                    <p className='inline lg:hidden'>
+                                        {[item.structure, item.place]
+                                            .map((v) => v?.trim())
+                                            .filter(Boolean)
+                                            .join(', ')}
+                                    </p>
                                     {item.curator && (
                                         <p className='credit-photo'>
                                             {' '}

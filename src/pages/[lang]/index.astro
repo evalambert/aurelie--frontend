@@ -1,6 +1,6 @@
 ---
 //pages/[lang]/index.astro
-import fetchApi from '../../assets/scripts/libs/strapi';
+import fetchApi, { fetchAllPaginated } from '../../assets/scripts/libs/strapi';
 import Layout from '../../layouts/Layout.astro';
 import About from '../../layouts/About.astro';
 import Footer from '../../layouts/Footer.astro';
@@ -32,10 +32,10 @@ const exhibitions = await fetchApi({
     wrappedByKey: 'data',
 });
 
-const atlases = await fetchApi({
+// Strapi limite à 100 entrées par requête par défaut → on récupère toutes les pages pour les atlas (beaucoup plus nombreux)
+const atlases = await fetchAllPaginated({
     endpoint: 'atlases',
     query: {
-        'pagination[pageSize]': 1000,
         populate: '*',
     },
     wrappedByKey: 'data',

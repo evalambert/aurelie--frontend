@@ -52,3 +52,45 @@ export default async function fetchApi ({
     throw error
   }
 }
+
+/**
+ * Récupère tous les éléments d'un endpoint paginé.
+ * Strapi limite par défaut à 100 entrées par requête (maxLimit).
+ * Cette fonction parcourt toutes les pages pour tout récupérer.
+ *
+ * @param {{ endpoint: string; query?: Record<string, any>; wrappedByKey?: string; wrappedByList?: string; locale?: string; pageSize?: number }} options
+ * @returns {Promise<Array>}
+ */
+export async function fetchAllPaginated ({
+  endpoint,
+  query = {},
+  wrappedByKey,
+  wrappedByList,
+  locale,
+  pageSize = 100
+}) {
+  const allItems = []
+  let page = 1
+  let hasMore = true
+
+  while (hasMore) {
+    const pageQuery = {
+      ...query,
+      'pagination[page]': page,
+      'pagination[pageSize]': pageSize
+    }
+    const items = await fetchApi({
+      endpoint,
+      query: pageQuery,
+      wrappedByKey,
+      wrappedByList,
+      locale
+    })
+    const list = Array.isArray(items) ? items : []
+    allItems.push(...list)
+    hasMore = list.length >= pageSize
+    page += 1
+  }
+
+  return allItems
+}
