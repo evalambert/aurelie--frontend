@@ -66,7 +66,7 @@ const AtlasCard = ({ id, atlas, onCardClick }) => {
       ) : null}
       <div>
         <h2 className="inline">[&thinsp;{capitalizeFirstWord(atlas.title)}&thinsp;] </h2> 
-        {atlas.medium && (
+        {atlas.technique && (
           <span className="inline lowercase">{atlas.technique}, </span>
         )}
         {atlas.format && (

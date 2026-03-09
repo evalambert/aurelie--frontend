@@ -38,6 +38,7 @@ const atlases = await fetchAllPaginated({
     query: {
         populate: '*',
     },
+    locale: lang,
     wrappedByKey: 'data',
 });
 
